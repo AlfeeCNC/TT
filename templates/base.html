@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %} {% endblock title %}｜以太坊實物捐贈平台</title>
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <!-- Google Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.9.0/feather.min.js"></script>
+
+    {% block css %}
+    {% endblock %}
+    <style>
+    </style>
+</head>
+
+<body>
+    {% include 'navbar.html' %}
+    <div class="row">
+        {% include 'sidebar.html' %}
+        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+            {% block content %}
+            <!-- Template Content -->
+            {% endblock content %}
+        </main>
+    </div>
+</body>
