@@ -10839,6 +10839,38 @@ textarea.form-control-lg {
 /** custome css **/
 
 /*
+ * Custome BTN
+ */
+.btn-outline-TT {
+  color: #d33a00;
+  background-color: #fafafa;
+  border-color: #d33a00;
+  border-width: 2px;
+  font-weight: bolder;
+}
+.btn-outline-TT:hover {
+  color: #fff;
+  background-color: #d33a00;
+  border-color: #d33a00;
+}
+.btn-check:focus + .btn-outline-TT, .btn-outline-TT:focus {
+  box-shadow: 0 0 0 0.25rem rgba(108, 117, 125, 0.5);
+}
+.btn-check:checked + .btn-outline-TT, .btn-check:active + .btn-outline-TT, .btn-outline-TT:active, .btn-outline-TT.active, .btn-outline-TT.dropdown-toggle.show {
+  color: #fff;
+  background-color: #d33a00;
+  border-color: #d33a00;
+}
+.btn-check:checked + .btn-outline-TT:focus, .btn-check:active + .btn-outline-TT:focus, .btn-outline-TT:active:focus, .btn-outline-TT.active:focus, .btn-outline-TT.dropdown-toggle.show:focus {
+  box-shadow: 0 0 0 0.25rem rgba(108, 117, 125, 0.5);
+}
+.btn-outline-TT:disabled, .btn-outline-TT.disabled {
+  color: #d33a00;
+  background-color: #fff;
+}
+
+
+/*
  * Sidebar
  */
 
