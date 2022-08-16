@@ -16,6 +16,12 @@ def riskPool(request):
     return render(request, 'startPlanForm/chooseRiskPool.html')
 
 def createIndividualPlan(request):
+    if request.POST:
+        joinFee = request.POST['joinFee']
+        launchFee = request.POST['launchFee']
+        deadline = request.POST['deadline']
+        paymentContentOption = request.POST['paymentContentOption']
+        print(joinFee, launchFee, deadline, paymentContentOption)
     return render(request, 'startPlanForm/individualPlan.html')
 
 class FormWizardView(SessionWizardView):
