@@ -1,6 +1,12 @@
 from django.urls import path
+
 from clubs.views import *
+from clubs.forms import *
+
 
 urlpatterns = [
-    path('hello/', hello_world),
+    path('startPlan/verify', verify, name='verify'),
+    path('startPlan/riskPool', riskPool, name='riskPool'),
+    path('startPlan/createIndividualPlan', createIndividualPlan, name='createIndividualPlan'),
+    path('startPlan/forms', FormWizardView.as_view([FormStepOne, FormStepTwo]), name="startPlanForm")
 ]
