@@ -1,4 +1,3 @@
-import re
 from django.shortcuts import render
 from django.http import HttpResponse
 
@@ -25,9 +24,30 @@ def createIndividualPlan(request):
     return render(request, 'startPlan/individualPlan.html')
 
 def createMutualHelpClub(request):
+    if request.POST:
+        joinFee = request.POST['joinFee']
+        launchAmount = request.POST['launchAmount']
+        terminateNums = request.POST['terminateNums']
+        deadline = request.POST['deadline']
+        if deadline == "有期限":
+            deadlineDate = request.POST['deadlineDate']
+            print(joinFee, launchAmount, terminateNums, deadline, deadlineDate)
+        else:
+            print(joinFee, launchAmount, terminateNums, deadline)
     return render(request, 'startPlan/createMutualHelpClub.html')
 
 def createShareClub(request):
+    if request.POST:
+        joinFee = request.POST['joinFee']
+        launchAmount = request.POST['launchAmount']
+        terminateNums = request.POST['terminateNums']
+        terminateAmount = request.POST['terminateAmount']
+        deadline = request.POST['deadline']
+        if deadline == "有期限":
+            deadlineDate = request.POST['deadlineDate']
+            print(joinFee, launchAmount, terminateNums, terminateAmount, deadline, deadlineDate)
+        else:
+            print(joinFee, launchAmount, terminateNums, terminateAmount, deadline)
     return render(request, 'startPlan/createShareClub.html')
 
 class FormWizardView(SessionWizardView):

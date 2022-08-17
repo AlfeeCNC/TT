@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
-{% block title %} 創建風險分擔團體 {% endblock title %}
+{% load static %}
+{% block title %} 創建風險分擔群組 {% endblock title %}
 {% block content %}
 <section style="padding-top:48px;">
     <div class="card mx-auto mt-5 shadow-sm w-35" style="width: 18rem; border: transparent;">
@@ -13,22 +14,36 @@
                 </div>
                 <div class="ms-3 me-3 mb-4">
                     <h5 class="form-label mb-2" style="color:#982e04;"><strong>群募起始條件</strong></h5>
-                    <input type="number" class="form-control" id="launchAmount" name="launchAmount" placeholder="請輸入起始金額">
+                    <input type="number" class="form-control" id="launchAmount" name="launchAmount"
+                        placeholder="請輸入起始金額">
                 </div>
                 <div class="ms-3 me-3 mb-4">
                     <h5 class="form-label mb-2" style="color:#982e04;"><strong>群募終止條件</strong></h5>
                     <div class="row">
-                        <div class="col">
-                            <input type="number" class="form-control" id="terminateNums" name="terminateNums" placeholder="請輸入終止人數">
+                        <div class="col input-group">
+                            <input type="number" class="form-control" id="terminateNums" name="terminateNums"
+                                placeholder="終止人數">
+                            <span class="input-group-text">人</span>
                         </div>
-                        <div class="col">
-                            <input type="number" class="form-control" id="terminateAmount" name="terminateAmount" placeholder="請輸入終止金額">
+                        <div class="col input-group">
+                            <input type="number" class="form-control" id="terminateAmount" name="terminateAmount"
+                                placeholder="終止金額">
+                            <span class="input-group-text">元</span>
                         </div>
                     </div>
                 </div>
                 <div class="ms-3 me-3 mb-4">
-                    <h5 class="form-label mb-2" style="color:#982e04;"><strong>群募終止時間</strong></h5>
-                    <input type="date" class="form-control" id="deadline" name="deadline">
+                    <h5 class="form-label mb-2" style="color:#982e04;"><strong>群募期限</strong></h5>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="deadline" id="deadline1" value="無期限">
+                        <label class="form-check-label" for="deadline1">無期限</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="deadline" id="deadline2" value="有期限">
+                        <label class="form-check-label" for="deadline1">有期限</label>
+                    </div>
+                    <div id="deadline3">
+                    </div>
                 </div>
                 <div class="ms-3 me-3 mb-4">
                     <h5 class="form-label mb-2" style="color:#982e04;"><strong>給付內容</strong></h5>
@@ -56,4 +71,7 @@
 {% endblock content %}
 
 {% block script %}
+
+<script src="{% static 'js/websiteFunctions/deadlineDate.js' %}"></script>
+
 {% endblock script %}
