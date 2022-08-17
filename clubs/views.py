@@ -29,11 +29,12 @@ def createMutualHelpClub(request):
         launchAmount = request.POST['launchAmount']
         terminateNums = request.POST['terminateNums']
         deadline = request.POST['deadline']
+        paymentContentOption = request.POST['paymentContentOption']
         if deadline == "有期限":
             deadlineDate = request.POST['deadlineDate']
-            print(joinFee, launchAmount, terminateNums, deadline, deadlineDate)
+            print(joinFee, launchAmount, terminateNums, deadline, deadlineDate, paymentContentOption)
         else:
-            print(joinFee, launchAmount, terminateNums, deadline)
+            print(joinFee, launchAmount, terminateNums, deadline, paymentContentOption)
     return render(request, 'startPlan/createMutualHelpClub.html')
 
 def createShareClub(request):
@@ -43,11 +44,12 @@ def createShareClub(request):
         terminateNums = request.POST['terminateNums']
         terminateAmount = request.POST['terminateAmount']
         deadline = request.POST['deadline']
+        paymentContentOption = request.POST['paymentContentOption']
         if deadline == "有期限":
             deadlineDate = request.POST['deadlineDate']
-            print(joinFee, launchAmount, terminateNums, terminateAmount, deadline, deadlineDate)
+            print(joinFee, launchAmount, terminateNums, terminateAmount, deadline, deadlineDate, paymentContentOption)
         else:
-            print(joinFee, launchAmount, terminateNums, terminateAmount, deadline)
+            print(joinFee, launchAmount, terminateNums, terminateAmount, deadline, paymentContentOption)
     return render(request, 'startPlan/createShareClub.html')
 
 class FormWizardView(SessionWizardView):
