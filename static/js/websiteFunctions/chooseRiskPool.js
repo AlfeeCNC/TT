@@ -30,10 +30,10 @@ joinType2.addEventListener('change', function () {
     }
     else if (joinType1.value == '團體') {
         if (joinType2.value == '分擔') {
-            btns.innerHTML = '<a class="mt-4 btn btn-success w-100" href={% url "startPlanForm" %}>創建風險分擔群組</a> <a class="mt-1 btn btn-warning w-100" href={% url "startPlanForm" %}>加入現有群組</a>'
+            btns.innerHTML = '<a class="mt-4 btn btn-success w-100" href="/clubs/startPlan/createShareClub"}>創建風險分擔群組</a> <a class="mt-1 btn btn-warning w-100" href={% url "startPlanForm" %}>加入現有群組</a>'
         }
         else if (joinType2.value == '互助') {
-            btns.innerHTML = '<a class="mt-4 btn btn-success w-100" href={% url "startPlanForm" %}>創建風險互助群組</a> <a class="mt-1 btn btn-warning w-100" href={% url "startPlanForm" %}>加入現有群組</a>'
+            btns.innerHTML = '<a class="mt-4 btn btn-success w-100" href="/clubs/startPlan/createMutualHelpClub" %}>創建風險互助群組</a> <a class="mt-1 btn btn-warning w-100" href={% url "startPlanForm" %}>加入現有群組</a>'
         }
     }
 })

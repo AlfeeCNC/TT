@@ -10,19 +10,25 @@ from formtools.wizard.views import SessionWizardView
 # Create your views here.
 
 def verify(request):
-    return render(request, 'startPlanForm/verify.html')
+    return render(request, 'startPlan/verify.html')
 
 def riskPool(request):
-    return render(request, 'startPlanForm/chooseRiskPool.html')
+    return render(request, 'startPlan/chooseRiskPool.html')
 
 def createIndividualPlan(request):
     if request.POST:
         joinFee = request.POST['joinFee']
-        launchFee = request.POST['launchFee']
+        launchAmount = request.POST['launchAmount']
         deadline = request.POST['deadline']
         paymentContentOption = request.POST['paymentContentOption']
-        print(joinFee, launchFee, deadline, paymentContentOption)
-    return render(request, 'startPlanForm/individualPlan.html')
+        print(joinFee, launchAmount, deadline, paymentContentOption)
+    return render(request, 'startPlan/individualPlan.html')
+
+def createMutualHelpClub(request):
+    return render(request, 'startPlan/createMutualHelpClub.html')
+
+def createShareClub(request):
+    return render(request, 'startPlan/createShareClub.html')
 
 class FormWizardView(SessionWizardView):
     form_list = [FormStepOne, FormStepTwo]
