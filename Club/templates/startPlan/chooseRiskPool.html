@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} 開始風險供給計畫 {% endblock title %}
+{% block content %}
+<section style="padding-top:48px;">
+    <div class="card mx-auto mt-5 shadow-sm w-35" style="width: 18rem; border: transparent;">
+        <div class="card-body">
+            <h3 class="card-title text-center mt-3" style="color:#982e04;"><strong>開始風險供給</strong></h3>
+            <div class="ms-3 me-3">
+                <h5 class="card-text mt-5" style="color:#cd9b85;"><strong>STEP.1 實名認證</strong></h5>
+            </div>
+            <div class="ms-3 me-3">
+                <h5 class="card-text mt-3" style="color:#982e04;"><strong>STEP.2 選擇風險池</strong></h5>
+                <p class="card-text " style="color:#982e04;"><strong>請選擇參與形式</strong></p>
+                <select class="form-select" name="join_typ1" id="join_type1">
+                    <option selected>請選擇個人或團體</option>
+                    <option value="個人">個人</option>
+                    <option value="團體">團體</option>
+                </select>
+                <select class="form-select mt-1" name="join_type2" id="join_type2">
+                    <option value="">請先選擇個人或團體</option>
+                </select>
+                <div class="mb-3" id="btns">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock content %}
+
+{% block script %}
+<script src="{% static 'js/websiteFunctions/chooseRiskPool.js' %}"></script>
+{% endblock script %}
