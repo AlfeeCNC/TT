@@ -15,8 +15,16 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
+from django.conf.urls.i18n import i18n_patterns
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('clubs/', include('Club.urls')),
+    path('i18n/', include('django.conf.urls.i18n'))
+    # path('clubs/', include('Club.urls')),
+    # path('members/', include('MemberSystem.urls')),
 ]
+
+urlpatterns += i18n_patterns(
+    # path(<your_path>, include(('<your_app>.urls', '<your_app>')),
+    path('clubs/', include('Club.urls'))
+)

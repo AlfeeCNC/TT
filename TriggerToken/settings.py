@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_rename_app',
     'formtools',
+    # website APPs
     'Club',
     'MemberSystem',
 ]
@@ -52,6 +53,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.locale.LocaleMiddleware', # 多語言
 ]
 
 ROOT_URLCONF = 'TriggerToken.urls'
@@ -67,6 +69,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.i18n',
             ],
         },
     },
@@ -108,8 +111,18 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
 
-LANGUAGE_CODE = 'zh-hant'
+from django.utils.translation import gettext_lazy as _
 
+LANGUAGES = (
+    ('en', ('English')),
+    ('zh-hant', _('Traditional Chinese')),
+)
+# 設置 locale 的路徑
+# BASE_DIR = 
+#     os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+LOCALE_PATHS = (
+    os.path.join(BASE_DIR, 'locale'),
+)
 TIME_ZONE = 'Asia/Taipei'
 
 USE_I18N = True
