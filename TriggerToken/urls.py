@@ -26,5 +26,6 @@ urlpatterns = [
 
 urlpatterns += i18n_patterns(
     # path(<your_path>, include(('<your_app>.urls', '<your_app>')),
-    path('clubs/', include('Club.urls'))
+    path('clubs/', include('Club.urls')),
+    path('members/', include('MemberSystem.urls')),
 )

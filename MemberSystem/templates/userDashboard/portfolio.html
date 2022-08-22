@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %} 我的資產 {% endblock title %}
+{% block content %}
+<section style="padding-top:48px;">
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-3 mb-3">
+                <h4>我的資產</h4>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-4 text-left"><small class="text-muted">計畫名稱</small></div>
+            <div class="col-2 text-center"><small class="text-muted">憑證數量</small></div>
+            <div class="col-6 text-center"><small class="text-muted">動作</small></div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-3 text-left my-auto">
+                <b>風險分擔計畫-A</b>
+            </div>
+            <div class="col-2 my-auto p-0" style="text-align: right;">
+                <b>12</b>
+            </div>
+            <div class="col-1 my-auto" style="text-align: left;">
+                <small class="text-muted">單位</small>
+            </div>
+            <div class="col-6 text-center my-auto">
+                <a class="btn btn-outline-primary">動作1</a>
+                <a class="btn btn-outline-secondary">動作2</a>
+                <a class="btn btn-outline-warning">動作3</a>
+                <a class="btn btn-outline-danger">動作4</a>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-3 text-left my-auto">
+                <b>風險互助計畫-C</b>
+            </div>
+            <div class="col-2 my-auto p-0" style="text-align: right;">
+                <b>147</b>
+            </div>
+            <div class="col-1 my-auto" style="text-align: left;">
+                <small class="text-muted">單位</small>
+            </div>
+            <div class="col-6 text-center my-auto">
+                <a class="btn btn-outline-primary">動作1</a>
+                <a class="btn btn-outline-secondary">動作2</a>
+                <a class="btn btn-outline-warning">動作3</a>
+                <a class="btn btn-outline-danger">動作4</a>
+            </div>
+        </div>
+        <hr>
+    </div>
+
+</section>
+{% endblock content %}
+
+{% block script %}
+{% endblock script %}

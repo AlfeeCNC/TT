@@ -10885,6 +10885,35 @@ textarea.form-control-lg {
   background-color: #fff;
 }
 
+.btn-TT {
+  color: #fff;
+  background-color: #d33a00;
+  border-color: #d33a00;
+}
+.btn-TT:hover {
+  color: #fff;
+  background-color: #9e2d03;
+  border-color: #9e2d03;
+}
+.btn-check:focus + .btn-TT, .btn-TT:focus {
+  color: #fff;
+  background-color: #9e2d03;
+  border-color: #9e2d03;
+  box-shadow: 0 0 0 0.25rem rgba(49, 132, 253, 0.5);
+}
+.btn-check:checked + .btn-TT, .btn-check:active + .btn-TT, .btn-TT:active, .btn-TT.active, .show > .btn-TT.dropdown-toggle {
+  color: #fff;
+  background-color: #9e2d03;
+  border-color: #9e2d03;
+}
+.btn-check:checked + .btn-TT:focus, .btn-check:active + .btn-TT:focus, .btn-TT:active:focus, .btn-TT.active:focus, .show > .btn-TT.dropdown-toggle:focus {
+  box-shadow: 0 0 0 0.25rem rgba(49, 132, 253, 0.5);
+}
+.btn-TT:disabled, .btn-TT.disabled {
+  color: #fff;
+  background-color: #d33a00;
+  border-color: #d33a00;
+}
 
 /*
  * Sidebar
