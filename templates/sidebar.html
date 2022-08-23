@@ -4,17 +4,17 @@
         <ul class="nav flex-column">
             <li class="nav-item text-center mt-3 mb-3">
                 <a class="btn btn-TT rounded-pill" href="{% url 'myPortfolio' %}" style="font-size: larger;">
-                    我的資產
+                    {% trans "我的資產" %}
                 </a>
             </li>
             <li class="nav-item text-center">
                 <a class="nav-link" href="{% url 'verify' %}" style="color:#d33a00; font-size: larger;">
-                    風險供給
+                    {% trans "風險供給者" %}
                 </a>
             </li>
             <li class="nav-item text-center">
                 <a class="nav-link" href="#" style="color:#d33a00; font-size: larger;">
-                    資金供給
+                    {% trans "資金供給者" %}
                 </a>
             </li>
         </ul>
