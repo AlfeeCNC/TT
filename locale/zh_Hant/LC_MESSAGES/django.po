@@ -193,7 +193,7 @@ msgstr "計畫名稱"
 
 #: MemberSystem/templates/userDashboard/portfolio.html:14
 msgid "合約地址"
-msgstr ""
+msgstr "合約地址"
 
 #: MemberSystem/templates/userDashboard/portfolio.html:15
 msgid "憑證數量"
@@ -206,7 +206,7 @@ msgstr "動作"
 #: MemberSystem/templates/userDashboard/portfolio.html:30
 #: MemberSystem/templates/userDashboard/portfolio.html:52
 msgid "單位"
-msgstr ""
+msgstr "單位"
 
 #: MemberSystem/templates/userDashboard/portfolio.html:33
 #: MemberSystem/templates/userDashboard/portfolio.html:55
