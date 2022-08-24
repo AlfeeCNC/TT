@@ -1,32 +1,37 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.conf import settings
 
 from MemberSystem.models import *
 
 
 # Create your models here.
 class Plan(models.Model):
+    # 計畫TT合約地址
+    contract_address = models.CharField(max_length=50, null=True)
     # 計畫類型（eg.團體分擔）
     plan_type = models.CharField(max_length=20)
     # 計畫發起人
     plan_host = models.ForeignKey(
-        User,
+        settings.AUTH_USER_MODEL,
         related_name='plans',
         on_delete=models.CASCADE)
     # 參與費用
-    join_fee = models.PositiveIntegerField()
+    fee = models.PositiveIntegerField()
     # 起始金額
     launch_amount = models.PositiveIntegerField()
     # 是否為無限期
-    indefinitely = models.BooleanField()
+    unlimited_period = models.BooleanField()
     # 終止時間
     deadline = models.DateField()
     # 群募終止金額
-    terminate_amount = models.PositiveIntegerField()
+    minimum_amounts = models.PositiveIntegerField()
     # 群募終止人數
-    terminate_nums = models.PositiveIntegerField()
-    # 支付內容
-    payment_content = models.CharField(max_length=20)
+    minimum_participants = models.PositiveIntegerField()
+    # 給付內容
+    benefits = models.CharField(max_length=20)
+
+    def __str__(self):
+        return self.contract_address
 
 class Participant(models.Model):
     # 參與者參加的計畫
@@ -39,6 +44,8 @@ class Participant(models.Model):
         Wallet,
         related_name='participant_wallet',
         on_delete=models.CASCADE)
+    # 持有板機憑證數量
+    tokens = models.IntegerField()
     # 參與者的角色（eg.資金提供人）
     role = models.CharField(max_length=20)
     # 參與者加入日期
@@ -47,3 +54,6 @@ class Participant(models.Model):
     take_effect_date = models.DateField()
     # 退出日期
     quit_date = models.DateTimeField()
+
+    def __str__(self):
+        return self.id
