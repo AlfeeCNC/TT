@@ -8,18 +8,22 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
         </div>
-        <div class="col-6 text-center">
+        <div class="col-7 d-flex justify-content-end">
+            {% if request.user.is_authenticated %}
+            <button class="btn btn-outline-TT rounded-pill" href="{% url 'login' %}" style="width: 15%; font-size:small; font-weight: bolder; text-overflow: ellipsis; overflow: hidden;">{{ request.user.username }}</button>
+            <a class="btn btn-outline-TT rounded-pill ms-1" href="{% url 'logout' %}">{% trans "登出" %}</a>
+            {% else %}
+            <a class="btn btn-outline-TT rounded-pill" href="{% url 'login' %}">{% trans "登入" %}</a>
+            {% endif %}
         </div>
-        <div class="col-1 d-flex justify-content-end align-items-center">
-            <button class="btn btn-outline-TT rounded-pill">{% trans "登入" %}</button>
-        </div>
-        <div class="col-1 d-flex justify-content-end align-items-center">
+        <div class="col-1 d-flex justify-content-end">
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <!-- dropdown -->
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" style="color:#C34600;" href="/" id="navbarDropdown" role="button"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{% trans "語言" %}</a>
+                        <a class="nav-link dropdown-toggle" style="color:#C34600;" href="/" id="navbarDropdown"
+                            role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{% trans "語言" %}
+                        </a>
                         <form action="{% url 'set_language' %}" method="post" id="lang_form">{% csrf_token %}
                             <input name="next" type="hidden" value="{{ redirect_to }}">
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -39,7 +43,7 @@
                         </a>
                     </li>
                     <!--/ dropdown -->
-    
+
                 </ul>
             </div>
         </div>
@@ -47,5 +51,9 @@
 
     </div>
 </nav>
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>

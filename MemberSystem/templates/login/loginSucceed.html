@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} 登入成功 {% endblock title %}
+{% block content %}
+<main class="col-md-12 ms-sm-auto col-lg-12 px-md-4">
+    <section style="padding-top:48px;">
+        <div class="container mt-5">
+            <div class="card mx-auto shadow p-2" style="width: fit-content; border:transparent;">
+                <img class="card-img-top mx-auto mt-5 mb-3" src="{% static 'img/metamask_logo.png' %}"
+                    style="width: 30%; height: 30%">
+                <div class="card-body row text-center">
+                    <h2>登入成功</h2>
+                    <form method="post" active="#">
+                        {% csrf_token %}
+                        <button class="btn btn-TT btn-lg mb-3 mt-3 mx-auto" type="submit">開始使用
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+{% endblock content %}
+{% block javascript %}
+{% endblock javascript %}
