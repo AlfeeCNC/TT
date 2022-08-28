@@ -11,7 +11,7 @@ class UserInfo(models.Model):
     # 使用者姓名
     name = models.CharField(max_length=20)
     # 使用者出生年月日
-    birthday = models.DateField
+    birthday = models.DateField()
     # 使用者身分證字號
     ID_number = models.CharField(max_length=20)
     # 使用者銀行帳戶
