@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load static %}
+{% block title %} {% trans "首頁" %} {% endblock title %}
+{% block sidebar %}
+<style>
+    :root {
+        --surface-color: #fff;
+        --curve: 40;
+    }
+
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Noto Sans JP', sans-serif;
+        background-color: #fef8f8;
+    }
+</style>
+{% endblock %}
+{% block content %}
+<main class="col-12 ms-sm-auto px-md-4">
+    <section class="row container mt-5 mx-auto" style="padding-top:48px;">
+        <div class="col-12 container text-center">
+            <h2 class="mb-3"><strong>風險管理專案</strong></h2>
+            <p>專案說明專案說明專案說明專案說明專案說明專案說明專案說明專案說明專案說明專案說明專案說明專案說明</br
+                >專案說明專案說明專案說明專案說明專案說明專案說明專案說明</p>
+        </div>
+    </section>
+    <ul class="animate_cards">
+        <li>
+            <a href="{% url 'joinMutualClub' %}" class="animate_card shadow">
+                <img src="{% static 'img/MutualHelp.jpg' %}" class="animate_card__image" alt="" />
+                <div class="animate_card__overlay">
+                    <div class="animate_card__header">
+                        <svg class="animate_card__arc" xmlns="http://www.w3.org/2000/svg">
+                            <path />
+                        </svg>
+                        <div class="animate_card__header-text">
+                            <h4 style="text-align: start; color:#181717;"><strong>風險互助</strong></h4>
+                            <b><small style="color:#C34600 ;">由風險供給者共同分擔互助金</small></b>
+                        </div>
+                    </div>
+                    <p class="animate_card__description" style="color:#656262;">
+                        參與社群成員，提供符合標準的風險標的，當風險標的發生了符合規定的風險事故，出具規定的證明，即可申領互助金，互助金由社群內的所有成員分攤。</p>
+                </div>
+            </a>
+        </li>
+        <li>
+            <a href="{% url 'joinSharingClub' %}" class="animate_card shadow">
+                <img src="{% static 'img/Sharing.jpg' %}" class="animate_card__image" alt="" />
+                <div class="animate_card__overlay">
+                    <div class="animate_card__header">
+                        <svg class="animate_card__arc" xmlns="http://www.w3.org/2000/svg">
+                            <path />
+                        </svg>
+                        <div class="animate_card__header-text">
+                            <h4 style="text-align: start; color:#181717;"><strong>風險分擔</strong></h4>
+                            <b><small style="color:#C34600 ;">由資金供給者分擔給付金</small></b>
+                        </div>
+                    </div>
+                    <p class="animate_card__description" style="color:#656262;">
+                        社群成員分為的風險標的的提供者與資金分擔者，風險標的發生了符合規定的風險事故，出具證明，則由資金分擔者提供分擔金給標的提供者。</p>
+                </div>
+            </a>
+        </li>
+    </ul>
+</main>
+
+{% endblock content %}
+
+{% block script %}
+{% endblock script %}

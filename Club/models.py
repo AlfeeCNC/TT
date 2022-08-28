@@ -6,8 +6,9 @@ from MemberSystem.models import *
 
 # Create your models here.
 class Plan(models.Model):
+    name = models.CharField(max_length=20)
     # 計畫TT合約地址
-    contract_address = models.CharField(max_length=50, null=True)
+    contract_address = models.CharField(max_length=50)
     # 計畫類型（eg.團體分擔）
     plan_type = models.CharField(max_length=20)
     # 計畫發起人
@@ -22,7 +23,7 @@ class Plan(models.Model):
     # 是否為無限期
     unlimited_period = models.BooleanField()
     # 終止時間
-    deadline = models.DateField()
+    deadline = models.DateField(null=True, blank=True) # 因可為無限期所以可為空
     # 群募終止金額
     minimum_amounts = models.PositiveIntegerField()
     # 群募終止人數
@@ -43,7 +44,8 @@ class Participant(models.Model):
     wallet_address = models.ForeignKey(
         Wallet,
         related_name='participant_wallet',
-        on_delete=models.CASCADE)
+        on_delete=models.CASCADE,
+        null=True) # 可能為非區塊鏈使用者，可設空值
     # 持有板機憑證數量
     tokens = models.IntegerField()
     # 參與者的角色（eg.資金提供人）

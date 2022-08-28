@@ -4,7 +4,7 @@ from .models import *
 
 @admin.register(Plan)
 class PlanAdmin(admin.ModelAdmin):
-    list_display = ['contract_address', 'plan_type', 'plan_host', 'fee', 'launch_amount', 'unlimited_period', 'deadline', 'minimum_amounts', 'minimum_participants', 'benefits']
+    list_display = ['contract_address', 'name','plan_type', 'plan_host', 'fee', 'launch_amount', 'unlimited_period', 'deadline', 'minimum_amounts', 'minimum_participants', 'benefits']
 
 @admin.register(Participant)
 class ParticipantAdmin(admin.ModelAdmin):
