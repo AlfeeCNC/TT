@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import include, path
 from django.conf.urls.i18n import i18n_patterns
 from django.views.i18n import JavaScriptCatalog
+from Club.views import landingPage
 
 js_info_dict = {
     'domain': 'djangojs',
@@ -31,6 +32,7 @@ urlpatterns = [
 
 urlpatterns += i18n_patterns(
     # path(<your_path>, include(('<your_app>.urls', '<your_app>')),
+    path('', landingPage, name='landingPage'),
     path('clubs/', include('Club.urls')),
     path('members/', include('MemberSystem.urls')),
     path('jsi18n/', JavaScriptCatalog.as_view(), name='javascript-catalog'),
