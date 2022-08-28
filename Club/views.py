@@ -8,6 +8,9 @@ from formtools.wizard.views import SessionWizardView
 
 # Create your views here.
 
+def landingPage(request):
+    return render(request,'landingPage/landingPage.html')
+
 def verify(request):
     return render(request, 'startPlan/verify.html')
 
@@ -51,6 +54,13 @@ def createShareClub(request):
         else:
             print(joinFee, launchAmount, terminateNums, terminateAmount, deadline, paymentContentOption)
     return render(request, 'startPlan/createShareClub.html')
+
+def joinSharingClub(request):
+    return render(request, 'joinPlan/joinSharing.html')
+
+def joinMutualClub(request):
+    return render(request, 'joinPlan/joinMutual.html')
+
 
 class FormWizardView(SessionWizardView):
     form_list = [FormStepOne, FormStepTwo]
