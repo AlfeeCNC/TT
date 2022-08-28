@@ -10,5 +10,9 @@ urlpatterns = [
     path('startPlan/individualPlan', createIndividualPlan, name='individualPlan'),
     path('startPlan/createShareClub', createShareClub, name='createShareClub'),
     path('startPlan/createMutualHelpClub', createMutualHelpClub, name='createMutualHelpClub'),
-    path('startPlan/forms', FormWizardView.as_view([FormStepOne, FormStepTwo]), name="startPlanForm")
+    path('startPlan/forms', FormWizardView.as_view([FormStepOne, FormStepTwo]), name="startPlanForm"),
+
+    path('joinPlan/sharingClubs', joinSharingClub, name='joinSharingClub'),
+    path('joinPlan/mutualClubs', joinMutualClub, name='joinMutualClub'),
+
 ]
