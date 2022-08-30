@@ -9,11 +9,11 @@
             <div class="card mx-auto shadow p-3" style="width: 40%; border:transparent;">
                 <div class="card-body row text-center">
                     <div  class="mb-3">
-                        <h2 style="color:#982e04;"><strong>{% trans "登入成功" %}</strong></h2>
+                        <h2 style="color:#982e04;"><strong>{% trans "註冊成功" %}</strong></h2>
                     </div>
                     <hr / class="mx-auto" style="width: 60%;">
                     <div class="mt-3 mb-3">
-                        <h5 style="color:#666666">系統將會於 <span id="countDown">3</span> 秒內自動跳轉至首頁</h5>
+                        <h5 style="color:#666666">系統將會於 <span id="countDown">3</span> 秒內自動跳轉至登入頁面</h5>
                     </div>
                 </div>
             </div>
@@ -33,7 +33,7 @@
             document.getElementById("countDown").innerText = time ;
         }
         else{
-            location.href="{% url 'landingPage' %}";
+            location.href="{% url 'login' %}";
         }
         time--;
     }

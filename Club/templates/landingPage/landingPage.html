@@ -24,13 +24,12 @@
     <section class="row container mt-5 mx-auto" style="padding-top:48px;">
         <div class="col-12 container text-center">
             <h2 class="mb-3"><strong>風險管理專案</strong></h2>
-            <p>專案說明專案說明專案說明專案說明專案說明專案說明專案說明專案說明專案說明專案說明專案說明專案說明</br
-                >專案說明專案說明專案說明專案說明專案說明專案說明專案說明</p>
+            <p>專利證號：M602237, M607838, M619311</p>
         </div>
     </section>
     <ul class="animate_cards">
         <li>
-            <a href="{% url 'joinMutualClub' %}" class="animate_card shadow">
+            <a href="{% url 'login' %}" class="animate_card shadow">
                 <img src="{% static 'img/MutualHelp.jpg' %}" class="animate_card__image" alt="" />
                 <div class="animate_card__overlay">
                     <div class="animate_card__header">
@@ -39,7 +38,7 @@
                         </svg>
                         <div class="animate_card__header-text">
                             <h4 style="text-align: start; color:#181717;"><strong>風險互助</strong></h4>
-                            <b><small style="color:#C34600 ;">由風險供給者共同分擔互助金</small></b>
+                            <b><small style="color:#C34600 ;">由風險供給者共同分攤互助金</small></b>
                         </div>
                     </div>
                     <p class="animate_card__description" style="color:#656262;">
@@ -48,7 +47,7 @@
             </a>
         </li>
         <li>
-            <a href="{% url 'joinSharingClub' %}" class="animate_card shadow">
+            <a href="{% url 'sharingClubList' %}" class="animate_card shadow">
                 <img src="{% static 'img/Sharing.jpg' %}" class="animate_card__image" alt="" />
                 <div class="animate_card__overlay">
                     <div class="animate_card__header">
@@ -61,7 +60,7 @@
                         </div>
                     </div>
                     <p class="animate_card__description" style="color:#656262;">
-                        社群成員分為的風險標的的提供者與資金分擔者，風險標的發生了符合規定的風險事故，出具證明，則由資金分擔者提供分擔金給標的提供者。</p>
+                        社群成員分為的風險標的的提供者與資金分擔者，風險標的發生了符合規定的風險事故，出具證明，則由資金分擔者提供給付給標的提供者。</p>
                 </div>
             </a>
         </li>

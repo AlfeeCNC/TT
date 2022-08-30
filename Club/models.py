@@ -1,5 +1,6 @@
 from django.db import models
 from django.conf import settings
+from django.urls import reverse
 
 from MemberSystem.models import *
 
@@ -33,6 +34,12 @@ class Plan(models.Model):
 
     def __str__(self):
         return self.contract_address
+
+    def join_verify_url(self):
+        return reverse('joinMutualClubVerify', kwargs={'id': self.id})
+        
+    def join_step2_url(self):
+        return reverse('joinMutualClubStep2', kwargs={'id': self.id})
 
 class Participant(models.Model):
     # 參與者參加的計畫

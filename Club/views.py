@@ -2,9 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 
 from datetime import datetime
-from .forms import FormStepOne, FormStepTwo
-from formtools.wizard.views import SessionWizardView
-
+from .models import *
 
 # Create your views here.
 
@@ -55,20 +53,29 @@ def createShareClub(request):
             print(joinFee, launchAmount, terminateNums, terminateAmount, deadline, paymentContentOption)
     return render(request, 'startPlan/createShareClub.html')
 
-def joinSharingClub(request):
-    return render(request, 'joinPlan/joinSharing.html')
+def sharingClubList(request):
+    return render(request, 'joinPlan/sharingClubList.html')
 
-def joinMutualClub(request):
-    return render(request, 'joinPlan/joinMutual.html')
+def mutualClubList(request):
+    planList = Plan.objects.all()
+    context = {
+        'planList' : planList,
+    }
+    return render(request, 'joinPlan/mutualClubList.html', context)
 
+def joinMutualClubVerify(request, id):
+    plan = Plan.objects.get(id=id)
+    context = {
+        'plan' : plan,
+    }
+    return render(request, 'joinPlan/joinMutualVerify.html', context)
 
-class FormWizardView(SessionWizardView):
-    form_list = [FormStepOne, FormStepTwo]
+def joinMutualClubStep2(request, id):
+    plan = Plan.objects.get(id=id)
+    context = {
+        'plan' : plan,
+    }
+    return render(request, 'joinPlan/joinMutualStep2.html', context)
 
-    def get_template_names(self):
-        return ['startPlanForm/step{0}.html'.format(self.steps.current)]
-    
-    def done(self, form_list, **kwargs):
-        return render(self.request, 'done.html', {
-            'form_data': [form.cleaned_data for form in form_list],
-        })
+def createMutualClub(request):
+    return render(request, 'createMutualClub.html')

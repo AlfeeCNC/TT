@@ -20,13 +20,15 @@
                 <div class="col-5 text-center"><small class="text-muted">{% trans "動作" %}</small></div>
             </div>
             <hr>
+            {% for plan in planList %}
             <div class="row">
                 <div class="col-2 text-left my-auto">
-                    <b>牙周醫療互助群</b>
+                    <b>{{ plan.name }}</b>
                 </div>
-                <div class="col-3 my-auto p-0"
-                    style="text-align: left; font-weight: bolder; text-overflow: ellipsis; overflow: hidden;">
-                    0x85318e8aD65140b10177Db877F083e785283A450
+                <div class="col-3 my-auto p-0" style="text-align: left; font-weight: bolder; text-overflow: ellipsis; overflow: hidden;">
+                    <a href="https://etherscan.io/address/{{ plan.contract_address }}">
+                        {{ plan.contract_address }}
+                    </a>
                 </div>
                 <div class="col-1 my-auto p-0" style="text-align: right;">
                     <b>12</b>
@@ -36,30 +38,17 @@
                 </div>
                 <div class="col-5 text-center my-auto">
                     <a class="btn btn-outline-TT mb-2">{% trans "群組資訊" %}</a>
-                    <a class="btn btn-outline-TT mb-2">{% trans "加入群組" %}</a>
+                    <a href="{{ plan.join_verify_url }}" class="btn btn-outline-TT mb-2">{% trans "加入群組" %}</a>
                 </div>
             </div>
             <hr>
-            <div class="row">
-                <div class="col-2 text-left my-auto">
-                    <b>寵物醫療互助群</b>
-                </div>
-                <div class="col-3 my-auto p-0"
-                    style="text-align: left; font-weight: bolder; text-overflow: ellipsis; overflow: hidden;">
-                    0x28Cf3988e6B9a0A121dcbB9A530E9050f10a076f
-                </div>
-                <div class="col-1 my-auto p-0" style="text-align: right;">
-                    <b>12</b>
-                </div>
-                <div class="col-1 my-auto" style="text-align: left;">
-                    <small class="text-muted">{% trans "單位" %}</small>
-                </div>
-                <div class="col-5 text-center my-auto">
-                    <a class="btn btn-outline-TT mb-2">{% trans "群組資訊" %}</a>
-                    <a class="btn btn-outline-TT mb-2">{% trans "加入群組" %}</a>
-                </div>
+            {% endfor %}
+            <div style="text-align: start;">
+                <small style="color:#C34600"><strong>附註－參加者生效日期為次月1日</strong></small>
             </div>
-            <hr>
+            <div class="text-center mb-3 mt-3">
+                <a href="{% url 'createMutualClub' %}"class="btn btn-TT mb-2" style="width: 20%;">{% trans "創建新群組" %}</a>
+            </div> 
         </div>
     </section>
 </main>

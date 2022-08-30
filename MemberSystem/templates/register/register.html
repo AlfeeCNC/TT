@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load static %}
+{% block title %} {% trans "註冊" %} {% endblock title %}
+{% block content %}
+<main class="col-md-12 ms-sm-auto col-lg-12 px-md-4">
+    <section style="padding-top:48px;">
+        <div class="container mt-5">
+            <div class="card mx-auto shadow p-3" style="width: 40%; border:transparent;">
+                <div class="card-body row text-center">
+                    <div class="mb-3">
+                        <h2 style="color:#982e04;"><strong>{% trans "註冊" %}</strong></h2>
+                    </div>
+                    <hr / class="mx-auto" style="width: 60%;">
+                    <form action="" method="POST">
+                        {% csrf_token %}
+                        <div class="container mb-3" style="text-align: start;">
+                            <div class="mt-3 me-3 mb-4">
+                                <h5 class="form-label mb-2" style="color:#982e04;"><strong>{% trans "帳號" %}</strong>
+                                </h5>
+                                <input type="text" class="form-control" id="username" name="username"
+                                    placeholder="{% trans '請輸入帳號' %}" required>
+                            </div>
+                            <div class="me-3 mb-4">
+                                <h5 class="form-label mb-2" style="color:#982e04;"><strong>{% trans "電子信箱" %}</strong>
+                                </h5>
+                                <input type="email" class="form-control" id="email" name="email"
+                                    placeholder="{% trans '請輸入電子信箱' %}" required>
+                            </div>
+                            <div class="me-3 mb-4">
+                                <h5 class="form-label mb-2" style="color:#982e04;"><strong>{% trans "密碼" %}</strong>
+                                </h5>
+                                <input type="password" class="form-control" id="password" name="password"
+                                    placeholder="{% trans '請輸入密碼' %}" required>
+                            </div>
+                            <div class="me-3 mb-4">
+                                <h5 class="form-label mb-2" style="color:#982e04;"><strong>{% trans "再次輸入密碼" %}</strong>
+                                </h5>
+                                <input type="password" class="form-control" id="passwordConfirm" name="passwordConfirm"
+                                    placeholder="{% trans '請再次輸入密碼' %}" required>
+                                <div class="mt-2 ms-1" id="sign">
+                                    <small><strong></strong></small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-5 mb-2">
+                            <input id="submitButton" class="btn btn-lg btn-success" style="width:70%;" type="submit"
+                                value="確認" />
+                        </div>
+                        <div class="mb-3">
+                            <a href="{% url 'login' %}" class="btn btn-secondary btn-lg  mx-auto" id="connectMetaMask" style="width:70%; ">返回</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock content %}
+
+{% block script %}
+<script>
+</script>
+<script src="{% static 'js/websiteFunctions/registerPasswordCheck.js' %}"></script>
+{% endblock script %}
