@@ -22,20 +22,5 @@
 </main>
 {% endblock content %}
 {% block script %}
-<script>
-    onload = function(){
-        setInterval(go, 1000);
-    }
-
-    var time = 2;
-    function go() {
-        if (time >= 0){
-            document.getElementById("countDown").innerText = time ;
-        }
-        else{
-            location.href="{% url 'login' %}";
-        }
-        time--;
-    }
-</script>
+<script src="{% static 'js/websiteFunctions/registerSucceed.js' %}"></script>
 {% endblock script %}
