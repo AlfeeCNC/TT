@@ -14,14 +14,14 @@
                 </div>
             </div>
         </div>
-        <div class="row">
+        <div class="row container-fluid">
             <div class="col-2 text-left"><small class="text-muted">{% trans "計畫名稱" %}</small></div>
             <div class="col-3 text-center"><small class="text-muted">{% trans "合約地址" %}</small></div>
             <div class="col-2 text-center"><small class="text-muted">{% trans "憑證數量" %}</small></div>
             <div class="col-5 text-center"><small class="text-muted">{% trans "動作" %}</small></div>
         </div>
-        <hr>
-        <div class="row">
+        <hr/ class="mx-auto" style="width:100%; border: 1px solid;">
+        <div class="row container-fluid">
             <div class="col-2 text-left my-auto">
                 <b>風險分擔計畫-A</b>
             </div>
@@ -42,8 +42,8 @@
                 <a class="btn btn-outline-TT mb-2">{% trans "退出" %}</a>
             </div>
         </div>
-        <hr>
-        <div class="row">
+        <hr/ class="mx-auto" style="width:95%">
+        <div class="row container-fluid">
             <div class="col-2 text-left my-auto">
                 <b>風險互助計畫-B</b>
             </div>
@@ -64,27 +64,28 @@
                 <a class="btn btn-outline-TT mb-2">{% trans "出金" %}</a>
                 <a class="btn btn-outline-TT mb-2">{% trans "退出" %}</a>
             </div>
+        
         </div>
-        <hr>
+        <hr/ class="mx-auto" style="width:95%">
         </div>
         <div class="row mt-5 container-fluid">
             <div class="col-6">
             </div>
-            <div class="col-2 mb-2 my-auto" style="text-align: right;">
+            <div class="col-2 mb-2 my-auto" style="text-align:right;">
+                <h2><strong>{{ cashPoint }}</strong></h3>
+            </div>
+            <div class="col-1 mb-2 my-auto" style="text-align:left ;">
                 <h5><strong>{% trans "現金點數" %}</strong></h5>
             </div>
-            <div class="col-1 mb-2 my-auto" style="text-align: left;">
-                <h2><strong>9,432</strong></h3>
-            </div>
-            <div class="col-2 mb-2 my-auto" style="text-align: right;">
-                <a class="btn btn-outline-TT mb-2">{% trans "入金" %}</a>
+            <div class="col-3 mb-2 my-auto" style="text-align: center;">
+                <a href="{% url 'buyCashPoint' %}"class="btn btn-outline-TT mb-2">{% trans "入金" %}</a>
                 <a class="btn btn-outline-TT mb-2">{% trans "出金" %}</a>
                 <a class="btn btn-outline-TT mb-2">{% trans "移轉" %}</a>
                 <a class="btn btn-outline-TT mb-2">{% trans "歷史紀錄" %}</a>
             </div>
-            <div class="col-7">
+            <div class="col-6">
             </div>
-            <div class="col-4">
+            <div class="col-6">
                 <hr>
             </div>
         </div>

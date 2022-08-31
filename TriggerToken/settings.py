@@ -143,3 +143,17 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# 綠界支付參數
+if DEBUG:
+    # 測試用，不會真實付款
+    ECPAY_MERCHEAT_ID = "3002607"
+    ECPAY_API_HASH_KEY = "pwFHCqoQZGmho4w6"
+    ECPAY_API_HASH_IV = "EkRm7iFT261dpevs"
+    ECPAY_API_URL = "https://payment-stage.ecpay.com.tw/Cashier/AioCheckOut/V5"
+else:
+    # 正式用，需自行去申請，會真實付款
+    ECPAY_MERCHEAT_ID = "xxxxxxxx"
+    ECPAY_API_HASH_KEY = "xxxxxxxxx"
+    ECPAY_API_HASH_IV = "xxxxxxxxxxx"
+    ECPAY_API_URL = "https://payment.ecpay.com.tw/Cashier/AioCheckOut/V5"

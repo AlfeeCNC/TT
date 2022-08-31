@@ -5,14 +5,21 @@ from django.urls import reverse_lazy
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import redirect
 from django.shortcuts import render
+from django.template import loader
 from django.contrib import auth
 from django.contrib.auth.models import User
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.forms import UserCreationForm
+from django.utils.decorators import method_decorator
+from django.views.generic import View
+from django.views.decorators.csrf import csrf_exempt
 
 import web3
 from web3 import Web3
 from eth_account.messages import encode_defunct
+
+from .ecpay_order import cashPointOrder
+import TriggerToken.ethereum as TTethereum
 
 # Infura Node
 InfuraURL = "https://ropsten.infura.io/v3/ed00ddb25c3b460c9b99f2375a314102"
@@ -23,7 +30,13 @@ web3 = Web3(web3.HTTPProvider(InfuraURL))
 
 
 def myPortfolio(request):
-    return render(request, 'userDashboard/portfolio.html')
+    userAddress = request.user.username
+    cashPoint = TTethereum.cashPointContract.functions.balanceOf(userAddress).call()
+    context = {
+        'cashPoint' : cashPoint, 
+    }
+
+    return render(request, 'userDashboard/portfolio.html', context)
 
 
 def register(request):
@@ -116,18 +129,68 @@ def signNonce(request):
     nonce = secrets.token_hex(32)
     return JsonResponse({'nonce': nonce})
 
-
 def checkSignature(signature, message):
     message_hash = encode_defunct(text=message)
     address = web3.eth.account.recover_message(
         message_hash, signature=signature)
     return address
 
-
 def loginSucceed(request):
     return render(request, 'login/loginSucceed.html')
-
 
 def logout(request):
     auth.logout(request)
     return redirect(reverse_lazy('login'))
+
+# Cash Point
+@csrf_exempt
+def buyCashPoint(request):
+    account = request.user.username
+    context = {
+        'account':account, 
+    }
+    if request.POST:
+        userAddress = request.POST.get('userAddress')
+        amount = request.POST.get('amount')
+        return HttpResponse(cashPointOrder(userAddress, amount))
+    return render(request, 'payment/buyCashPoint.html', context)
+
+# @method_decorator(csrf_exempt, name='dispatch')
+class PaymentReturnView(View):
+    @method_decorator(csrf_exempt)
+    def dispatch(self, request, *args, **kwargs):
+        return super(PaymentReturnView, self).dispatch(request, *args, **kwargs)
+
+    # def get(self, request):
+    #     context = {}
+    #     print("GET IT")
+    #     return render(request, 'payment/paymentSuccess.html')
+
+    def post(self, request):
+        context = {}
+        print(request.POST)
+        res = request.POST.dict()
+        recipient = web3.toChecksumAddress(res['CustomField1'])
+        amount = int(res['TradeAmt'])
+        nonce = web3.eth.getTransactionCount(TTethereum.developerPublicKey)
+
+        txn = TTethereum.cashPointContract.functions.transfer(recipient, amount).buildTransaction({
+            'chainId': 3,
+            'from': TTethereum.developerPublicKey,
+            'gas': 37000,
+            'gasPrice': web3.eth.gas_price,
+            'nonce': nonce
+        })
+
+        signed_txn = web3.eth.account.signTransaction(txn, private_key=TTethereum.developerPrivateKey)
+        tx_hash = web3.eth.sendRawTransaction(signed_txn.rawTransaction)
+        # receipt = web3.eth.wait_for_transaction_receipt(tx_hash)
+        t = loader.get_template('payment/paymentSuccess.html')
+        context.update({
+            "res": res,
+            "tx_hash": tx_hash
+        })
+        return HttpResponse(t.render(context, request))
+
+def develop(request):
+    return render(request, 'payment/paymentSuccess.html')
