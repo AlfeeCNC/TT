@@ -8,4 +8,4 @@ class PlanAdmin(admin.ModelAdmin):
 
 @admin.register(Participant)
 class ParticipantAdmin(admin.ModelAdmin):
-    list_display = ['plan', 'wallet_address', 'tokens', 'role', 'join_date', 'take_effect_date', 'quit_date']
+    list_display = ['plan', 'user', 'tokens', 'role', 'join_date', 'take_effect_date', 'quit_date']

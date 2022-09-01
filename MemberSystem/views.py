@@ -18,6 +18,7 @@ import web3
 from web3 import Web3
 from eth_account.messages import encode_defunct
 
+from Club.models import *
 from .ecpay_order import cashPointOrder
 import TriggerToken.ethereum as TTethereum
 
@@ -30,10 +31,15 @@ web3 = Web3(web3.HTTPProvider(InfuraURL))
 
 
 def myPortfolio(request):
-    userAddress = request.user.username
-    cashPoint = TTethereum.cashPointContract.functions.balanceOf(userAddress).call()
+    user = request.user
+    if user.username == web3.toChecksumAddress(user.username):
+        cashPoint = TTethereum.cashPointContract.functions.balanceOf(user.username).call()
+        cashPoint = (format(cashPoint, ',d'))
+    # wallet = Wallet.objects.get(user=user)
+    # participating = Participant.objects.all().filter(wallet=wallet)
     context = {
-        'cashPoint' : cashPoint, 
+        # 'cashPoint' : cashPoint, 
+        # 'participating' : participating,
     }
 
     return render(request, 'userDashboard/portfolio.html', context)
@@ -193,4 +199,4 @@ class PaymentReturnView(View):
         return HttpResponse(t.render(context, request))
 
 def develop(request):
-    return render(request, 'payment/paymentSuccess.html')
+    return render(request, 'test.html')

@@ -1,0 +1,134 @@
+<!-- index.html -->
+<html>
+    <body style="border:5px solid #333;">
+        <h1>this is index</h1>
+        <div>
+	        <input type="button" value="fillFormWhiteListSetting" onclick="fillFormWhiteListSetting()">
+	        <input type="button" value="fillFormDeploy" onclick="fillFormDeploy()">
+	        <input type="button" value="fillFormSign" onclick="fillFormSign()">
+	        <input type="button" value="fillFormMintBatch" onclick="fillFormMintBatch()">
+	        <input type="button" value="fillFormProxyBurn" onclick="fillFormProxyBurn()">
+	        <input type="button" value="fillFormClaim" onclick="fillFormClaim()">
+	    </div>
+	    <div>
+	    	<iframe src="https://ttdapplet.skychainnet.com/external/white_list_setting" id='white_list_setting' width="600" height="500" scrolling="yes" align="center" frameborder="1"></iframe>
+        	<iframe src="https://ttdapplet.skychainnet.com/trigger_token/deploy" id='deploy' width="600" height="500" scrolling="yes" align="center" frameborder="1"></iframe>
+	    </div>
+        <div>
+        	<iframe src="https://ttdapplet.skychainnet.com/external/sign" id='sign' width="600" height="500" scrolling="yes" align="center" frameborder="1"></iframe>
+        	<iframe src="https://ttdapplet.skychainnet.com/external/tt_mint_batch/0x721386269B24830374069Bf5F0a6E6dB66Ce0Bc7" id='tt_mint_batch' width="600" height="500" scrolling="yes" align="center" frameborder="1"></iframe>
+        </div>
+        <div>
+        	<iframe src="https://ttdapplet.skychainnet.com/external/tt_proxy_burn/0x721386269B24830374069Bf5F0a6E6dB66Ce0Bc7" id='tt_proxy_burn' width="600" height="500" scrolling="yes" align="center" frameborder="1"></iframe>
+        	<iframe src="https://ttdapplet.skychainnet.com/external/tt_claim/0x721386269B24830374069Bf5F0a6E6dB66Ce0Bc7" id='tt_claim' width="600" height="500" scrolling="yes" align="center" frameborder="1"></iframe>
+        </div>
+    </body>
+</html>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script>
+
+// message handler function
+function receiveMessageFromIframePage (event) {
+	if(event.data.type == 'skychain'){
+		console.log('receiveMessageFromIframePage', event)
+		console.log(event.data.result)
+		alertMsg = ""
+		for (var key in event.data.result){
+            alertMsg += key + " : " + event.data.result[key] + "\n"
+        }
+		alert(alertMsg)
+	}else{
+		console.log('parent: no effect')
+	}
+}
+
+// listen to messageEvent
+window.addEventListener("message", receiveMessageFromIframePage, false);
+
+//get iframe element
+iFrame_white_list_setting = document.getElementById('white_list_setting');
+iFrame_deploy = document.getElementById('deploy');
+iFrame_sign = document.getElementById('sign');
+iFrame_tt_mint_batch = document.getElementById('tt_mint_batch');
+iFrame_tt_proxy_burn = document.getElementById('tt_proxy_burn');
+iFrame_tt_claim = document.getElementById('tt_claim');
+
+
+function fillFormWhiteListSetting(){
+	console.log("fillFormWhiteListSetting");
+	msgContent = {
+		type: 'skychain',
+		form: {
+			whiteList: {
+	            '0x6F744A5737507F035c42872f6869203829F78E36': true,  // 對授權狀態的 boolean
+	            '0xD562d5Ed78E844A7FF72a2A1b5E8Df3E22c92599': true,
+	            '0x12B4156d0dF8889f83381BA2d986A54f755782dC': false
+	        }
+		}
+	}
+	iFrame_white_list_setting.contentWindow.postMessage(msgContent,'https://ttdapplet.skychainnet.com');
+}
+
+function fillFormDeploy(){
+	console.log("fillFormDeploy");
+	msgContent = {
+		type: 'skychain',
+		form: {
+			name: 'Trigger Token',  // ERC20 標準 Token 名稱
+	        symbol: 'TRI',  // ERC20 標準 Token Symbol, 三個英文大寫字母
+	        meta: '{"name":"name1","description":"description1"}'   // Metadata json, 可描述風險互助會的內容, 如每單位保額, 兌換比例...等
+		}
+	}
+	iFrame_deploy.contentWindow.postMessage(msgContent,'https://ttdapplet.skychainnet.com');
+}
+
+function fillFormSign(){
+	console.log("fillFormSign");
+	msgContent = {
+		type: 'skychain',
+		form: {
+			sign_msg: '{action: "mint", args: {clubAddress: "0xWWWW...", amount: 1000000000000000000, address: "0xYYYY...", startDate: 1661494047}}'  // 欲簽章的內容, 可為任意長度字串, 例如描述行為的 JSON
+		}
+	}
+	iFrame_sign.contentWindow.postMessage(msgContent,'https://ttdapplet.skychainnet.com');
+}
+
+function fillFormMintBatch(){
+	console.log("fillFormMintBatch");
+	msgContent = {
+		type: 'skychain',
+		form: {
+			mintBatch: {
+	            '0x6F744A5737507F035c42872f6869203829F78E36': 3000000000000000000,  // 必須為數字, 非字串, 標準decimal為18
+	            '0xD562d5Ed78E844A7FF72a2A1b5E8Df3E22c92599': 1000000000000000000
+	        }
+		}
+	}
+	iFrame_tt_mint_batch.contentWindow.postMessage(msgContent,'https://ttdapplet.skychainnet.com');
+}
+
+function fillFormProxyBurn(){
+	console.log("fillFormProxyBurn");
+	msgContent = {
+		type: 'skychain',
+		form: {
+			account: '0x6F744A5737507F035c42872f6869203829F78E36',  // 欲銷毀其 token 的會員地址
+        	amount: 1000000000000000000  // 欲銷毀量
+		}
+	}
+	iFrame_tt_proxy_burn.contentWindow.postMessage(msgContent,'https://ttdapplet.skychainnet.com');
+}
+
+function fillFormClaim(){
+	console.log("fillFormClaim");
+	msgContent = {
+		type: 'skychain',
+		form: {
+			account: '0x6F744A5737507F035c42872f6869203829F78E36'  // 欲銷毀其 token 的會員地址
+		}
+	}
+	iFrame_tt_proxy_burn.contentWindow.postMessage(msgContent,'https://ttdapplet.skychainnet.com');
+}
+</script>

@@ -47,12 +47,12 @@ class Participant(models.Model):
         Plan,
         related_name='participant',
         on_delete=models.CASCADE)
-    # 參與者的錢包地址
-    wallet_address = models.ForeignKey(
-        Wallet,
-        related_name='participant_wallet',
+    # 參與者
+    user = models.ForeignKey(
+        UserInfo,
+        related_name='participant',
         on_delete=models.CASCADE,
-        null=True) # 可能為非區塊鏈使用者，可設空值
+        null=True, blank=True)
     # 持有板機憑證數量
     tokens = models.IntegerField()
     # 參與者的角色（eg.資金提供人）
@@ -62,7 +62,7 @@ class Participant(models.Model):
     # 生效日期
     take_effect_date = models.DateField()
     # 退出日期
-    quit_date = models.DateTimeField()
+    quit_date = models.DateTimeField(null=True, blank=True)
 
     def __str__(self):
-        return self.id
+        return self.user.name
