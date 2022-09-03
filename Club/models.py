@@ -36,10 +36,10 @@ class Plan(models.Model):
         return self.contract_address
 
     def join_verify_url(self):
-        return reverse('joinMutualClubVerify', kwargs={'id': self.id})
+        return reverse('joinMutualClubVerify', kwargs={'address': self.contract_address})
         
     def join_step2_url(self):
-        return reverse('joinMutualClubStep2', kwargs={'id': self.id})
+        return reverse('joinMutualClubStep2', kwargs={'address': self.contract_address})
 
 class Participant(models.Model):
     # 參與者參加的計畫
@@ -49,7 +49,7 @@ class Participant(models.Model):
         on_delete=models.CASCADE)
     # 參與者
     user = models.ForeignKey(
-        UserInfo,
+        settings.AUTH_USER_MODEL,
         related_name='participant',
         on_delete=models.CASCADE,
         null=True, blank=True)
@@ -64,5 +64,5 @@ class Participant(models.Model):
     # 退出日期
     quit_date = models.DateTimeField(null=True, blank=True)
 
-    def __str__(self):
-        return self.user.name
+    # def __str__(self):
+    #     return self.user

@@ -6,6 +6,6 @@ from .models import *
 class UserInfoAdmin(admin.ModelAdmin):
     list_display = ['user', 'name', 'birthday', 'ID_number', 'bank_account']
 
-# @admin.register(Wallet)
-# class WalletAdmin(admin.ModelAdmin):
-#     list_display = ['user', 'wallet_address', 'cash_points', 'is_whitelist']
+@admin.register(Action)
+class ActionAdmin(admin.ModelAdmin):
+    list_display = ['user', 'action_type', 'target', 'amount', 'request_time', 'act_time']

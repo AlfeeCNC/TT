@@ -1,7 +1,7 @@
 from django.urls import path
 
-from Club.views import *
-from Club.forms import *
+from .views import *
+from .forms import *
 
 
 urlpatterns = [
@@ -14,7 +14,7 @@ urlpatterns = [
     path('sharingClubs', sharingClubList, name='sharingClubList'),
     path('mutualClubs', mutualClubList, name='mutualClubList'),
     path('mutualClubs/create', createMutualClub, name='createMutualClub'),
-    path('mutualClubs/<int:id>/verify', joinMutualClubVerify, name='joinMutualClubVerify'),
-    path('mutualClubs/<int:id>/step_02', joinMutualClubStep2, name='joinMutualClubStep2')
+    path('mutualClubs/<slug:address>/verify', joinMutualClubVerify, name='joinMutualClubVerify'),
+    path('mutualClubs/<slug:address>/step_02', joinMutualClubStep2, name='joinMutualClubStep2')
 
 ]

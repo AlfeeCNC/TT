@@ -32,14 +32,17 @@ web3 = Web3(web3.HTTPProvider(InfuraURL))
 
 def myPortfolio(request):
     user = request.user
-    if user.username == web3.toChecksumAddress(user.username):
-        cashPoint = TTethereum.cashPointContract.functions.balanceOf(user.username).call()
-        cashPoint = (format(cashPoint, ',d'))
-    # wallet = Wallet.objects.get(user=user)
-    # participating = Participant.objects.all().filter(wallet=wallet)
+    try:
+        if user.username == web3.toChecksumAddress(user.username):
+            cashPoint = TTethereum.cashPointContract.functions.balanceOf(user.username).call()
+            cashPoint = (format(cashPoint, ',d'))
+    except:
+        cashPoint = 1000
+    userInfo = UserInfo.objects.get(user=user)
+    participating = Participant.objects.all().filter(user=user)
     context = {
-        # 'cashPoint' : cashPoint, 
-        # 'participating' : participating,
+        'cashPoint' : cashPoint, 
+        'participating' : participating,
     }
 
     return render(request, 'userDashboard/portfolio.html', context)
@@ -166,11 +169,6 @@ class PaymentReturnView(View):
     @method_decorator(csrf_exempt)
     def dispatch(self, request, *args, **kwargs):
         return super(PaymentReturnView, self).dispatch(request, *args, **kwargs)
-
-    # def get(self, request):
-    #     context = {}
-    #     print("GET IT")
-    #     return render(request, 'payment/paymentSuccess.html')
 
     def post(self, request):
         context = {}

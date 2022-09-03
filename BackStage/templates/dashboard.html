@@ -1,0 +1,73 @@
+{% extends 'backstageBase.html' %}
+{% load static %}
+{% block title %} 操作面板 {% endblock title %}
+
+{% block content %}
+<style>
+.hr-sect {
+    display: flex;
+    flex-basis: 100%;
+    align-items: center;
+    color: rgba(0, 0, 0, 0.35);
+    margin: 8px 0px;
+}
+.hr-sect:before,
+.hr-sect:after {
+    content: "";
+    flex-grow: 1;
+    background: rgba(60, 59, 59, 0.35);
+    height: 1px;
+    font-size: 0px;
+    line-height: 0px;
+    margin: 0px 8px;
+}
+</style>
+<main class="col-md-12 ms-sm-auto col-lg-12 px-md-4">
+    <section style="padding-top:48px;">
+        <div class="container mt-5 row mx-auto">
+            <div class="col-7 mx-auto">
+                <div class="card mx-auto shadow p-3" style="width: 100%; border:transparent;">
+                    <div class="card-body">
+                        <div  class="mb-3">
+                            <h4 style="color:#982e04;"><strong>發行板機憑證</strong></h4>
+                        </div>
+                        <div class="row mt-4">
+                            <div class="col-8"><small>計畫合約</small></div>
+                            <div class="col-2 text-center"><small>人數</small></div>
+                        </div>
+                        <hr / class="mx-auto mb-4" style="width: 100%;">
+                        {% for task in waitForIssue %}
+                        <div class="row">
+                            <div class="col-8 my-auto">{{ task.target }}</div>
+                            <div class="col-2 text-center my-auto">{{ task.count }}</div>
+                            <div class="col-2 text-center my-auto"><a href="token/issue/{{ task.target }}"class="btn btn-outline-TT my-auto">選取</a></div>
+                        </div>
+                        <hr / style="width: 100%;">
+                        {% endfor %}
+                        {% for task in waitForTXComplete %}
+                        <div class="row">
+                            <div class="col-8 my-auto">{{ task.target }}</div>
+                            <div class="col-2 text-center my-auto">{{ task.count }}</div>
+                            <div class="col-2 text-center my-auto"><a class="btn btn-TT my-auto disabled">處理中</a></div>
+                        </div>
+                        <hr / style="width: 100%;">
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-5 mx-auto">
+                <div class="card mx-auto shadow p-3" style="width: 100%; border:transparent;">
+                    <div class="card-body">
+                        <div  class="mb-3">
+                            <h4 style="color:#982e04;"><strong>申請給付</strong></h4>
+                        </div>
+                        <hr / class="mx-auto" style="width: 100%;">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock content %}
+{% block script %}
+{% endblock script %}

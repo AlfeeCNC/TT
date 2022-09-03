@@ -7,54 +7,59 @@
 {% block content %}
 <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
     <section style="padding-top:48px;">
-        <div class="container mt-5">
+        <div class="container-fluid mt-5">
             <div class="row">
                 <div class="col-3 mb-3">
                     <h4><strong>{% trans "我的資產" %}</strong></h4>
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-2 text-center"><small class="text-muted">{% trans "計畫名稱" %}</small></div>
-            <div class="col-1 text-center"><small class="text-muted">{% trans "合約地址" %}</small></div>
-            <div class="col-1 text-center"><small class="text-muted">{% trans "持有數量" %}</small></div>
-            <div class="col-1 text-center"><small class="text-muted">{% trans "下期數量" %}</small></div>
-            <div class="col-2 text-center"><small class="text-muted">{% trans "預期分攤金" %}</small></div>
-            <div class="col-5 text-center"><small class="text-muted">{% trans "動作" %}</small></div>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-2 text-center"><small class="text-muted">{% trans "計畫名稱" %}</small></div>
+                <div class="col-1 text-center"><small class="text-muted">{% trans "合約地址" %}</small></div>
+                <div class="col-1 text-center"><small class="text-muted">{% trans "持有數量" %}</small></div>
+                <div class="col-1 text-center"><small class="text-muted">{% trans "下期數量" %}</small></div>
+                <div class="col-2 text-center"><small class="text-muted">{% trans "預期分攤金" %}</small></div>
+                <div class="col-5 text-center"><small class="text-muted">{% trans "動作" %}</small></div>
+            </div>
         </div>
-        <hr/ class="mx-auto" style="width:95%; border: 1px solid;">
+        <hr / class="mx-auto" style="width:100%; border: 1px solid;">
         {% for club in participating %}
-        <div class="row">
-            <div class="col-2 text-center my-auto">
-                <b>{{ club.plan.name }}</b>
-            </div>
-            <div class="col-1 my-auto p-0" style="text-align: left; font-weight: bolder; text-overflow: ellipsis; overflow: hidden;">
-                <a href="https://etherscan.io/address/{{ club.plan.contract_address }}">{{ club.plan.contract_address }}</a>
-            </div>
-            <div class="col-1 my-auto p-0" style="text-align: center;">
-                <b>{{ club.tokens }}</b>
-            </div>
-            <div class="col-1 my-auto p-0" style="text-align: center;">
-                <b>12</b>
-            </div>
-            <div class="col-2 my-auto p-0" style="text-align: center;">
-                <b>1200000</b>
-            </div>
-            <div class="col-5 my-auto row">
-                <div class="col-8" style="text-align:end;">
-                    <a class="btn btn-outline-TT mb-2">{% trans "移轉" %}</a>
-                    <a class="btn btn-outline-TT mb-2">{% trans "減額" %}</a>
-                    <a class="btn btn-outline-TT mb-2">{% trans "出金" %}</a>
-                    <a class="btn btn-outline-TT mb-2">{% trans "退出" %}</a>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-2 text-center my-auto">
+                    <b>{{ club.plan.name }}</b>
                 </div>
-                <div class="col-4">
-                    <a class="btn btn-outline-TT mb-2">{% trans "申請給付" %}</a>
+                <div class="col-1 my-auto p-0"
+                    style="text-align: left; font-weight: bolder; text-overflow: ellipsis; overflow: hidden;">
+                    <a href="https://etherscan.io/address/{{ club.plan.contract_address }}">{{ club.plan.contract_address }}</a>
+                </div>
+                <div class="col-1 my-auto p-0" style="text-align: center;">
+                    <b>{{ club.tokens }}</b>
+                </div>
+                <div class="col-1 my-auto p-0" style="text-align: center;">
+                    <b>12</b>
+                </div>
+                <div class="col-2 my-auto p-0" style="text-align: center;">
+                    <b>1200000</b>
+                </div>
+                <div class="col-5 my-auto row">
+                    <div class="col-8" style="text-align:end;">
+                        <a class="btn btn-outline-TT mb-2">{% trans "移轉" %}</a>
+                        <a class="btn btn-outline-TT mb-2">{% trans "減額" %}</a>
+                        <a class="btn btn-outline-TT mb-2">{% trans "出金" %}</a>
+                        <a class="btn btn-outline-TT mb-2">{% trans "退出" %}</a>
+                    </div>
+                    <div class="col-4">
+                        <a class="btn btn-outline-TT mb-2">{% trans "申請給付" %}</a>
+                    </div>
                 </div>
             </div>
         </div>
-        <hr/ class="mx-auto" style="width:95%">
+        <hr / class="mx-auto" style="width:95%">
         {% endfor %}
-        <div class="container" style="text-align: start;">
+        <div class="container-fluid" style="text-align: start;">
             <small style="color:#C34600"><strong>附註：申請退出及減額將於每月月底進行，當月分攤金仍需支付</strong></small>
         </div>
         <div class="row mt-5 container-fluid">
@@ -64,10 +69,10 @@
                 <h6><strong>{% trans "現金點數" %}</strong></h5>
             </div>
             <div class="col-2 mb-2 my-auto" style="text-align:right;">
-                <!-- <h2><strong>{{ cashPoint }}</strong></h3> -->
+                <h2><strong>{{ cashPoint }}</strong></h3>
             </div>
             <div class="col-4 mb-2 my-auto" style="text-align: center;">
-                <a href="{% url 'buyCashPoint' %}"class="btn btn-outline-TT mb-2">{% trans "入金" %}</a>
+                <a href="{% url 'buyCashPoint' %}" class="btn btn-outline-TT mb-2">{% trans "入金" %}</a>
                 <a class="btn btn-outline-TT mb-2">{% trans "出金" %}</a>
                 <a class="btn btn-outline-TT mb-2">{% trans "移轉" %}</a>
                 <a class="btn btn-outline-TT mb-2">{% trans "歷史紀錄" %}</a>

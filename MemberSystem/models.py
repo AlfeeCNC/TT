@@ -1,5 +1,6 @@
 from django.db import models
 from django.conf import settings
+from django.urls import reverse
 
 # Create your models here.
 class UserInfo(models.Model):
@@ -24,18 +25,23 @@ class UserInfo(models.Model):
     def __str__(self):
         return self.ID_number
 
-# class Wallet(models.Model):
-#     # 使用者
-#     user = models.ForeignKey(
-#         settings.AUTH_USER_MODEL,
-#         related_name='user_wallet',
-#         on_delete=models.CASCADE)
-#     # 使用者錢包地址
-#     wallet_address = models.CharField(max_length=50)
-#     # 使用者現金點數
-#     cash_points = models.PositiveIntegerField()
-#     # 使用者是否為白名單
-#     is_whitelist = models.BooleanField(default=True)
-
-#     def __str__(self):
-#         return self.wallet_address
+class Action(models.Model):
+    # 使用者
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        related_name='user_action',
+        on_delete=models.CASCADE)
+    # 動作類別，e.g. 出金、入金、加入群組...等
+    action_type = models.CharField(max_length=20)
+    # 動作的目標，e.g.加入哪個群組
+    target = models.CharField(max_length=50, null=True, blank=True)
+    # 數量，e.g.投保的憑證數量（第一階段先亂定數目，因為這關係到核保步驟）
+    amount = models.IntegerField(null=True, blank=True)
+    # 提出請求的時間
+    request_time = models.DateTimeField()
+    # 實際執行的時間
+    act_time = models.DateTimeField()
+    # 是否已執行
+    done = models.BooleanField(default=False)
+    # transaction hash
+    tx_hash = models.CharField(max_length=100, null=True, blank=True)

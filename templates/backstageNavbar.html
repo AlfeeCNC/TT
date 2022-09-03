@@ -1,0 +1,27 @@
+<nav class="navbar navbar-expand-md fixed-top" style="background-color: #fee4d5;">
+    <div class="container-fluid row">
+        <div class="col-4">
+            <a class="navbar-brand" style="font-weight: bold; color:#C34600;" href="{% url 'landingPage' %}">風險管理專案｜管理者後台</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
+                aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+        <div class="col-7 d-flex justify-content-end">
+            {% if request.user.is_authenticated %}
+            <button class="btn btn-outline-TT rounded-pill" href="{% url 'login' %}" style="width: 15%; font-size:small; font-weight: bolder; text-overflow: ellipsis; overflow: hidden;">{{ request.user.username }}</button>
+            <a class="btn btn-outline-TT rounded-pill ms-1" href="{% url 'logout' %}">登出</a>
+            {% else %}
+            <a class="btn btn-outline-TT rounded-pill" href="{% url 'login' %}">登入</a>
+            {% endif %}
+        </div>
+
+
+    </div>
+</nav>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>

@@ -1,0 +1,102 @@
+{% extends 'backstageBase.html' %}
+{% load static %}
+{% block title %} 發行板機憑證 {% endblock title %}
+
+{% block content %}
+<style>
+    .hr-sect {
+        display: flex;
+        flex-basis: 100%;
+        align-items: center;
+        color: rgba(0, 0, 0, 0.35);
+        margin: 8px 0px;
+    }
+
+    .hr-sect:before,
+    .hr-sect:after {
+        content: "";
+        flex-grow: 1;
+        background: rgba(60, 59, 59, 0.35);
+        height: 1px;
+        font-size: 0px;
+        line-height: 0px;
+        margin: 0px 8px;
+    }
+</style>
+<main class="col-12 ms-sm-auto  px-md-4">
+    <section style="padding-top:48px;">
+        <div class="container mt-5">
+            <div class="row">
+                <div class="col-3 mb-5">
+                    <h4><strong>{{ address }}</strong></h4>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-6">
+                    <div class="row">
+                        <div class="col-8 text-left"><small class="text-muted">使用者</small></div>
+                        <div class="col-4 text-center"><small class="text-muted">申請數量</small></div>
+                    </div>
+                    <hr>
+                    {% for task in toDo %}
+                    <div class="row">
+                        <div class="col-8 my-auto"
+                            style="text-align: left; font-weight: bolder; text-overflow: ellipsis; overflow: hidden;">
+                            <b>{{ task.user }}</b>
+                        </div>
+                        <div class="col-4 my-auto" style="text-align: center;">
+                            <b>{{ task.amount }}</b>
+                        </div>
+                    </div>
+                    <hr>
+                    {% endfor %}
+                    <div class="text-center mt-4">
+                        <input class="btn btn-outline-TT" style="width:70%" type="button" value="一鍵匯入"
+                            onclick="fillFormMintBatch()">
+                    </div>
+                </div>
+                <div class="col-6 ">
+                    <iframe src="https://ttdapplet.skychainnet.com/external/tt_mint_batch/{{ address }}"
+                        id='tt_mint_batch' width="600" height="500" scrolling="yes" align="center"
+                        frameborder="1"></iframe>
+                </div>
+            </div>
+            <form id="txCompletedForm" method="POST" action="#">
+                <input type="hidden" id="txHash" name="txHash" value="">
+            </form>
+    </section>
+</main>
+{% endblock content %}
+{% block script %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script type="text/javascript">
+    var mintDict = {{ mintDict| safe }};
+    $("#txHash").val("");
+    // message handler function
+    function receiveMessageFromIframePage(event) {
+        if (event.data.type == 'skychain') {
+            txHash = event.data.result["tx_hash"];
+            $("#txHash").val(txHash);
+            $("#txCompletedForm").submit();
+        } else {
+            console.log('parent: no effect');
+        }
+    }
+
+    // listen to messageEvent
+    window.addEventListener("message", receiveMessageFromIframePage, false);
+
+    iFrame_tt_mint_batch = document.getElementById('tt_mint_batch');
+    function fillFormMintBatch() {
+        console.log("fillFormMintBatch");
+        msgContent = {
+            type: 'skychain',
+            form: {
+                mintBatch: mintDict
+            }
+        }
+        iFrame_tt_mint_batch.contentWindow.postMessage(msgContent, 'https://ttdapplet.skychainnet.com');
+    }
+</script>
+{% endblock script %}

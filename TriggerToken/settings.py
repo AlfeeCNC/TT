@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     # website APPs
     'Club',
     'MemberSystem',
+    'BackStage',
 ]
 
 MIDDLEWARE = [
