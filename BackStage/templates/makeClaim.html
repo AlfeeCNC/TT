@@ -1,0 +1,93 @@
+{% extends 'backstageBase.html' %}
+{% load static %}
+{% block title %} 發行板機憑證 {% endblock title %}
+
+{% block content %}
+<style>
+    .hr-sect {
+        display: flex;
+        flex-basis: 100%;
+        align-items: center;
+        color: rgba(0, 0, 0, 0.35);
+        margin: 8px 0px;
+    }
+
+    .hr-sect:before,
+    .hr-sect:after {
+        content: "";
+        flex-grow: 1;
+        background: rgba(60, 59, 59, 0.35);
+        height: 1px;
+        font-size: 0px;
+        line-height: 0px;
+        margin: 0px 8px;
+    }
+</style>
+<main class="col-12 ms-sm-auto  px-md-4">
+    <section style="padding-top:48px;">
+        <div class="container mt-5">
+            <div class="row">
+                <div class="col-12 mb-5">
+                    <h4 style="color:#982e04"><strong>{{ task.target.name }}</strong></h4>
+                    <h4 style="color:#982e04"><strong>{{ task.target }}</strong></h4>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-6">
+                    <div class="row">
+                        <div class="col-12 text-left"><small class="text-muted">使用者</small></div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-12 my-auto"
+                            style="text-align: left; font-weight: bolder; text-overflow: ellipsis; overflow: hidden;">
+                            <b>{{ task.user }}</b>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="text-center mt-4">
+                        <input class="btn btn-outline-TT" style="width:70%" type="button" value="確認匯入"
+                            onclick="fillFormClaim()">
+                    </div>
+                </div>
+                <div class="col-6 ">
+                    <iframe src="https://ttdapplet.skychainnet.com/external/tt_claim/{{ task.target.contract_address }}" id='tt_claim' width="600" height="500" scrolling="yes" align="center" frameborder="1"></iframe>
+                </div>
+            </div>
+            <form id="txCompletedForm" method="POST" action="#">
+                <input type="hidden" id="txHash" name="txHash" value="">
+            </form>
+    </section>
+</main>
+{% endblock content %}
+{% block script %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script type="text/javascript">
+    var claimDict = {{ claimDict| safe }};
+    $("#txHash").val("");
+    // message handler function
+    function receiveMessageFromIframePage(event) {
+        if (event.data.type == 'skychain') {
+            txHash = event.data.result["tx_hash"];
+            $("#txHash").val(txHash);
+            $("#txCompletedForm").submit();
+        } else {
+            console.log('parent: no effect');
+        }
+    }
+
+    // listen to messageEvent
+    window.addEventListener("message", receiveMessageFromIframePage, false);
+
+    iFrame_tt_claim = document.getElementById('tt_claim');
+    function fillFormClaim(){
+	console.log("fillFormClaim");
+	msgContent = {
+		type: 'skychain',
+		form: claimDict
+	}
+	iFrame_tt_claim.contentWindow.postMessage(msgContent,'https://ttdapplet.skychainnet.com');
+}
+</script>
+{% endblock script %}

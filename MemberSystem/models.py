@@ -2,6 +2,8 @@ from django.db import models
 from django.conf import settings
 from django.urls import reverse
 
+from Club.models import *
+
 # Create your models here.
 class UserInfo(models.Model):
     # 外鍵，使用者
@@ -21,6 +23,8 @@ class UserInfo(models.Model):
     wallet_address = models.CharField(max_length=50, null=True, blank=True)
     # 使用者現金點數
     cash_points = models.PositiveIntegerField(null=True, blank=True,)
+    # 是否是白名單
+    is_whitelist = models.BooleanField(default=False)
 
     def __str__(self):
         return self.ID_number
@@ -34,7 +38,10 @@ class Action(models.Model):
     # 動作類別，e.g. 出金、入金、加入群組...等
     action_type = models.CharField(max_length=20)
     # 動作的目標，e.g.加入哪個群組
-    target = models.CharField(max_length=50, null=True, blank=True)
+    target = models.ForeignKey(
+        Plan,
+        related_name='target_plan',
+        on_delete=models.CASCADE)
     # 數量，e.g.投保的憑證數量（第一階段先亂定數目，因為這關係到核保步驟）
     amount = models.IntegerField(null=True, blank=True)
     # 提出請求的時間

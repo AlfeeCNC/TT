@@ -1,0 +1,130 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load static %}
+{% block title %} {% trans "創建風險互助群組" %} {% endblock title %}
+{% block sidebar %}
+{% include 'sidebar.html' %}
+{% endblock %}
+{% block content %}
+<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+    <section class="text-center" style="padding-top:48px;">
+        <div class="container ms-3 mb-5 mb-5">
+            <h1 class="mt-5" style="color:#982e04; text-align: left;"><strong>{{ plan.name }}</strong></h1>
+            <h5 class="mt-3" style="color:#982e04ae; text-align: left;"><strong>智能合約地址：<a
+                        href="https://ropsten.etherscan.io/address/{{ plan.contract_address }}"
+                        style="color: #982e04ae;">{{ plan.contract_address }}</a></h5>
+        </div>
+        <div class="container row mx-auto">
+            <div class="col-8 mb-3">
+                <div class="card shadow mx-auto h-100 mb-4" style="border:transparent;">
+                    <div class="card-body">
+                        <div class="mb-4 mt-2 ms-2 me-2">
+                            <h4 style="color:#444444; text-align: start;"><strong>群組資訊</strong></h4>
+                            <hr />
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-2"><small style="color:#666666">計畫類型</small></div>
+                            <div class="col-2"><small style="color:#666666">計畫發起人</small></div>
+                            <div class="col-3"><small style="color:#666666">起始日期</small></div>
+                            <div class="col-2"><small style="color:#666666">給付內容</small></div>
+                            
+                            <div class="col-3"><small style="color:#666666">終止期限</small></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-2">
+                                <h6 style="color:#444444">{{ plan.plan_type }}</h6>
+                            </div>
+                            <div class="col-2">
+                                <h6 style="color:#444444">{{ plan.plan_host }}</h6>
+                            </div>
+                            <div class="col-3">
+                                <h6 style="color:#444444">{{ plan.start_date }}</h6>
+                            </div>
+                            <div class="col-2">
+                                <h6 style="color:#444444">{{ plan.benefits }}</h6>
+                            </div>
+                            
+                            <div class="col-3">
+                                {% if plan.unlimited_period %}
+                                <h6 style="color:#444444">－</h6>
+                                {% else %}
+                                <h6 style="color:#444444">{{ plan.deadline }}</h6>
+                                {% endif %}
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-2 mb-3">
+                <div class="card shadow mx-auto h-100" style="border:transparent;">
+                    <div class="card-body">
+                        <div class="mb-5 mt-2 ms-2 me-2">
+                            <h4 style="color:#444444; text-align: start;"><strong>憑證總量</strong></h4>
+                            <hr />
+                        </div>
+                        <div>
+                            <h4>{{ supply }}</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-2 mb-3">
+                <div class="card shadow mx-auto h-100" style="border:transparent;">
+                    <div class="card-body">
+                        <div class="mb-5 mt-2 ms-2 me-2">
+                            <h4 style="color:#444444; text-align: start;"><strong>給付總額</strong></h4>
+                            <hr />
+                        </div>
+                        <div>
+                            <h4 class="my-auto">{{ claimAmount }}<span style="font-size:small"> 萬元</span></h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="card shadow mx-auto h-100 mb-4" style="border:transparent;">
+                    <div class="card-body">
+                        <div class="mb-4 mt-2 ms-2 me-2">
+                            <h4 style="color:#444444; text-align: start;"><strong>給付紀錄</strong></h4>
+                            <hr />
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-5"><small style="color:#666666">申請人</small></div>
+                            <div class="col-2"><small style="color:#666666">申請日期</small></div>
+                            <div class="col-2"><small style="color:#666666">給付金額</small></div>
+                            <div class="col-3"><small style="color:#666666">交易紀錄</small></div>
+                        </div>
+                        {% for claim in claims %}
+                        <div class="row">
+                            <div class="col-5" style="text-align: left; text-overflow: ellipsis; overflow: hidden;">
+                                <h6 class="my-auto" style="text-decoration:none; color:#444444; white-space: nowrap; ">{{ claim.user.username }}</h6>
+                            </div>
+                            <div class="col-2">
+                                <h6 class="my-auto" style="color:#444444">{{ claim.request_time}}</h6>
+                            </div>
+                            <div class="col-2">
+                                <h6 class="my-auto" style="color:#444444">{{ claim.amount }} 萬</h6>
+                            </div>
+                            <div class="col-3 my-auto p-0" style="text-align: left; font-weight: bolder; text-overflow: ellipsis; overflow: hidden;">
+                                <a href="https://ropsten.etherscan.io/tx/{{ claim.tx_hash }}" style="white-space: nowrap;">
+                                    {{ claim.tx_hash }}
+                                </a>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="container mt-4">
+            <button onclick="history.back()" class="btn btn-outline-TT" style="width:10%;">返回前頁</button>
+        </div>
+    </section>
+</main>
+
+{% endblock content %}
+
+{% block script %}
+{% endblock script %}

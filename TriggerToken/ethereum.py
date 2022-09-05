@@ -11,7 +11,7 @@ developerPublicKey = web3.toChecksumAddress("0x7a0b40Fd34E70255E638961E6e0FFd777
 developerPrivateKey = "d4fa9992b9c1f03dbdfbcb76bb5eed1bc93c00bd6e55033613cca24ab5586f59"
 
 # contracts' address & ABI
-cashPointAddress = web3.toChecksumAddress("0xff1a766f68F2C9259AcD0FCF5BF805FB9Fb8c7Db")
+cashPointAddress = web3.toChecksumAddress("0xD2BF04C3A35B0CD763d965cab215F3910e47f283")
 cashPointABI = '''
 [
 	{

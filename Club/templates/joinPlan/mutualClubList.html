@@ -26,18 +26,18 @@
                     <b>{{ plan.name }}</b>
                 </div>
                 <div class="col-3 my-auto p-0" style="text-align: left; font-weight: bolder; text-overflow: ellipsis; overflow: hidden;">
-                    <a href="https://etherscan.io/address/{{ plan.contract_address }}">
+                    <a href="https://ropsten.etherscan.io/address/{{ plan.contract_address }}">
                         {{ plan.contract_address }}
                     </a>
                 </div>
                 <div class="col-1 my-auto p-0" style="text-align: right;">
-                    <b>12</b>
+                    <b>{{ plan.supply }}</b>
                 </div>
                 <div class="col-1 my-auto" style="text-align: left;">
                     <small class="text-muted">{% trans "單位" %}</small>
                 </div>
                 <div class="col-5 text-center my-auto">
-                    <a class="btn btn-outline-TT mb-2">{% trans "群組資訊" %}</a>
+                    <a href="{% url 'clubDetail' address=plan.contract_address %}" class="btn btn-outline-TT mb-2">{% trans "群組資訊" %}</a>
                     <a href="{{ plan.join_verify_url }}" class="btn btn-outline-TT mb-2">{% trans "加入群組" %}</a>
                 </div>
             </div>
@@ -47,7 +47,7 @@
                 <small style="color:#C34600"><strong>附註－參加者生效日期為次月1日</strong></small>
             </div>
             <div class="text-center mb-3 mt-3">
-                <a href="{% url 'createMutualClub' %}"class="btn btn-TT mb-2" style="width: 20%;">{% trans "創建新群組" %}</a>
+                <a href="{% url 'serviceNotAvailable' %}"class="btn btn-TT mb-2" style="width: 20%;">{% trans "創建新群組" %}</a>
             </div> 
         </div>
     </section>

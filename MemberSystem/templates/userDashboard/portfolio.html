@@ -9,7 +9,7 @@
     <section style="padding-top:48px;">
         <div class="container-fluid mt-5">
             <div class="row">
-                <div class="col-3 mb-3">
+                <div class="col-3 mb-3 mt-3">
                     <h4><strong>{% trans "我的資產" %}</strong></h4>
                 </div>
             </div>
@@ -29,30 +29,85 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-2 text-center my-auto">
-                    <b>{{ club.plan.name }}</b>
+                    <a href="{% url 'clubDetail' address=club.plan.contract_address %}" style="text-decoration:none; color: #000;"><b>{{ club.plan.name }}</b></a>
                 </div>
                 <div class="col-1 my-auto p-0"
                     style="text-align: left; font-weight: bolder; text-overflow: ellipsis; overflow: hidden;">
-                    <a href="https://etherscan.io/address/{{ club.plan.contract_address }}">{{ club.plan.contract_address }}</a>
+                    <a href="https://ropsten.etherscan.io/address/{{ club.plan.contract_address }}" style="text-decoration:none; color: #000;">{{ club.plan.contract_address }}</a>
                 </div>
                 <div class="col-1 my-auto p-0" style="text-align: center;">
                     <b>{{ club.tokens }}</b>
                 </div>
                 <div class="col-1 my-auto p-0" style="text-align: center;">
-                    <b>12</b>
+                    <b>{{ club.nextPeriodAmount }}</b>
                 </div>
                 <div class="col-2 my-auto p-0" style="text-align: center;">
-                    <b>1200000</b>
+                    <b>{{ club.needToPay }}</b>
                 </div>
                 <div class="col-5 my-auto row">
                     <div class="col-8" style="text-align:end;">
-                        <a class="btn btn-outline-TT mb-2">{% trans "移轉" %}</a>
-                        <a class="btn btn-outline-TT mb-2">{% trans "減額" %}</a>
-                        <a class="btn btn-outline-TT mb-2">{% trans "出金" %}</a>
-                        <a class="btn btn-outline-TT mb-2">{% trans "退出" %}</a>
+                        <a href="{% url 'serviceNotAvailable' %}" class="btn btn-outline-TT my-auto">{% trans "移轉" %}</a>
+                        <a href="{% url 'decrease' address=club.plan.contract_address %}" class="btn btn-outline-TT my-auto">{% trans "減額" %}</a>
+                        <a href="{% url 'quitClub' address=club.plan.contract_address %}" class="btn btn-outline-TT my-auto">{% trans "退出" %}</a>
                     </div>
                     <div class="col-4">
-                        <a class="btn btn-outline-TT mb-2">{% trans "申請給付" %}</a>
+                        <a href="{% url 'applyForClaim' address=club.plan.contract_address %}" class="btn btn-outline-TT my-auto">{% trans "申請給付" %}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr / class="mx-auto" style="width:95%">
+        {% endfor %}
+        {% for action in joinActions %}
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-2 text-center my-auto">
+                    <a href="{% url 'clubDetail' address=action.target %}" style="text-decoration:none; color: #666666;"><b>{{ action.target.name }}</b></a>
+                </div>
+                <div class="col-1 my-auto p-0"
+                    style="text-align: left; font-weight: bolder; text-overflow: ellipsis; overflow: hidden;">
+                    <a href="https://ropsten.etherscan.io/address/{{ action.target }}" style="text-decoration:none; color: #666666;">{{ action.target }}</a>
+                </div>
+                <div class="col-1 my-auto p-0" style="text-align: center;">
+                    <b style="color: #666666;">-</b>
+                </div>
+                <div class="col-1 my-auto p-0" style="text-align: center;">
+                    <b style="color: #666666;">{{ action.amount }}</b>
+                </div>
+                <div class="col-2 my-auto p-0" style="text-align: center;">
+                    <b style="color: #666666;">-</b>
+                </div>
+                <div class="col-5 my-auto row">
+                    <div class="col-12 text-center">
+                        <a class="btn btn-secondary my-auto disabled" style="width: 100%;">{% trans "審核中" %}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr / class="mx-auto" style="width:95%">
+        {% endfor %}
+        {% for action in quitActions %}
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-2 text-center my-auto">
+                    <a href="{% url 'clubDetail' address=action.target %}" style="text-decoration:none; color: #666666;"><b>{{ action.target.name }}</b></a>
+                </div>
+                <div class="col-1 my-auto p-0"
+                    style="text-align: left; font-weight: bolder; text-overflow: ellipsis; overflow: hidden;">
+                    <a href="https://ropsten.etherscan.io/address/{{ action.target }}" style="text-decoration:none; color: #666666;">{{ action.target }}</a>
+                </div>
+                <div class="col-1 my-auto p-0" style="text-align: center;">
+                    <b style="color: #666666;">{{ action.amount }}</b>
+                </div>
+                <div class="col-1 my-auto p-0" style="text-align: center;">
+                    <b style="color: #666666;">0</b>
+                </div>
+                <div class="col-2 my-auto p-0" style="text-align: center;">
+                    <b style="color: #666666;">-</b>
+                </div>
+                <div class="col-5 my-auto row">
+                    <div class="col-12 text-center">
+                        <a class="btn btn-secondary my-auto disabled" style="width: 100%;">{% trans "已申請退出" %}</a>
                     </div>
                 </div>
             </div>
@@ -73,9 +128,9 @@
             </div>
             <div class="col-4 mb-2 my-auto" style="text-align: center;">
                 <a href="{% url 'buyCashPoint' %}" class="btn btn-outline-TT mb-2">{% trans "入金" %}</a>
-                <a class="btn btn-outline-TT mb-2">{% trans "出金" %}</a>
-                <a class="btn btn-outline-TT mb-2">{% trans "移轉" %}</a>
-                <a class="btn btn-outline-TT mb-2">{% trans "歷史紀錄" %}</a>
+                <a href="{% url 'cashOut' %}" class="btn btn-outline-TT mb-2">{% trans "出金" %}</a>
+                <a href="{% url 'serviceNotAvailable' %}" class="btn btn-outline-TT mb-2">{% trans "移轉" %}</a>
+                <a href="{% url 'serviceNotAvailable' %}" class="btn btn-outline-TT mb-2">{% trans "歷史紀錄" %}</a>
             </div>
             <div class="col-5">
             </div>

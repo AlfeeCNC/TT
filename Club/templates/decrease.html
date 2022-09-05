@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %} {% trans "減額" %} {% endblock title %}
+{% block sidebar %}
+{% include 'sidebar.html' %}
+{% endblock %}
+{% block content %}
+<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+    <section style="padding-top:48px;">
+        <div class="card mx-auto mt-5 shadow w-35" style="width: 18rem; border: transparent;">
+            <div class="card-body">
+                <h3 class="card-title text-center mt-3" style="color:#982e04;"><strong>減額</strong>
+                </h3>
+                <hr / class="mx-auto" style="width: 80%;">
+                <div class="container">
+                    <form id="transferERC865" method="POST" action="#">
+                        {% csrf_token %}
+                    <div class="mt-3 me-3 mb-4 text-center">
+                        <h5 class="mb-3" style="color:#982e04;"><strong>{% trans "目標群組" %}</strong></h5>
+                        <h6><strong>{{ participanting.plan.name }}</strong></h6>
+                    </div>
+                    <div class="mt-3 me-3 text-center">
+                        <h5 class="mb-3" style="color:#982e04;"><strong>{% trans "持有憑證數量" %}</strong></h5>
+                        <h6><strong>{{ participanting.tokens }}</strong></h6>
+                    </div>
+                    <div class="mt-3 me-3 text-center">
+                        <h5 class="mb-3" style="color:#982e04;"><strong>{% trans "欲減額數量（欲減少的憑證數量）" %}</strong></h5>
+                        <input class="form-control"type="" id="amount" name="amount" value=""placeholder="{% trans '請輸入欲減額數量' %}" required>
+                    </div>
+                    <div class="mt-4 me-3">
+                        <small style="color:#666666"><strong>註：減額提出後，將於每月月底進行，將銷毀指定數量的憑證並兌換成等值的現金點數
+                            </strong></small>
+                    </div>
+                </div>
+                <div class="text-center mt-3 mb-3">
+                     <button class="btn btn-lg btn-success mb-2" style="width:70%;">確認</button>
+                    </form>
+                    <button class="btn btn-lg btn-secondary" style="width:70%;" onclick="history.back()">返回</button>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+{% endblock content %}
+
+{% block script %}
+{% endblock script %}

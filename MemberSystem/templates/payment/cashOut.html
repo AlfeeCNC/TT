@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %} {% trans "出金" %} {% endblock title %}
+{% block sidebar %}
+{% include 'sidebar.html' %}
+{% endblock %}
+{% block content %}
+<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+    <section style="padding-top:48px;">
+        <div class="card mx-auto mt-5 shadow w-35" style="width: 18rem; border: transparent;">
+            <div class="card-body">
+                <h3 class="card-title text-center mt-3" style="color:#982e04;"><strong>出金</strong>
+                </h3>
+                <hr / class="mx-auto" style="width: 80%;">
+                <div class="container">
+                    <div class="mt-3 me-3 mb-4">
+                        <h5 class="form-label mb-2" style="color:#982e04;"><strong>{% trans "您的戶頭" %}</strong></h5>
+                        <input class="form-control" value="{{ userInfo.bank_account}}" readonly>
+                    </div>
+                    <form id="transferERC865" method="POST" action="#">
+                        {% csrf_token %}
+                        <div class="mt-3 me-3">
+                            <h5 class="form-label mb-2" style="color:#982e04;"><strong>{% trans "欲出金金額" %}</strong></h5>
+                            <input class="form-control"type="" id="value" name="value" value=""placeholder="{% trans '請輸入金額' %}" required>
+                        </div>
+                        <input type="hidden" id="signature" name="signature" value=""></br>
+                        <input type="hidden" id="nonce" name="nonce" value=""></br>
+                    </form>
+                </div>
+                <div class="text-center mb-3">
+                    {% if blockchainUser %}
+                    <button id="isbcuser" class="btn btn-lg btn-success mb-2" style="width:70%;" onclick="getCashOutData()">送出</button>
+                    {% else %}
+                    <button id="notbcuser" class="btn btn-lg btn-success mb-2" style="width:70%;" onclick="simpleTransfer()">送出</button>
+                    {% endif %}
+                    <button class="btn btn-lg btn-secondary" style="width:70%;" onclick="history.back()">返回</button>
+                </div>
+
+            </div>
+        </div>
+    </section>
+</main>
+
+{% endblock content %}
+
+{% block script %}
+<script>
+    web3 = new Web3(window.ethereum);
+    $("#value").val("");
+    $("#signature").val("");
+    $("#nonce").val("");
+    const cashPointAddress = web3.utils.toChecksumAddress("0xD2BF04C3A35B0CD763d965cab215F3910e47f283");
+    const platformAddress = web3.utils.toChecksumAddress("0x7a0b40Fd34E70255E638961E6e0FFd7777aCd423");
+    function getCashOutData(){
+        value = $("#value").val();
+        nonce = value*parseInt(Math.floor(Date.now() / 1000));
+        createSignature(value,nonce)
+    }
+    function createSignature(value, nonce) {
+        //keccak256(abi.encodePacked(bytes4(0x48664c16), _token, _to, _value, _fee, _nonce))
+        hashToSign = web3.utils.soliditySha3(
+            { type: 'bytes4', value: "48664c16" },
+            { type: 'address', value: cashPointAddress },
+            { type: 'address', value: platformAddress },
+            { type: 'uint256', value: value },
+            { type: 'uint256', value: 0 },
+            { type: 'uint256', value: nonce })
+
+        ethereum.request({ method: 'eth_requestAccounts' }).then(
+            web3.eth.getAccounts()
+                .then(result =>
+                    web3.eth.sign(hashToSign, web3.utils.toChecksumAddress(result[0]))
+                        .then(result => transferERC865(result))));
+    }
+    function transferERC865(signature) {
+        $("#value").val(value);
+        $("#signature").val(signature);
+        $("#nonce").val(nonce);
+        $("#transferERC865").submit();
+    }
+    function simpleTransfer(){
+        $("#value").val();
+        $("#transferERC865").submit();
+    }
+</script>
+{% endblock script %}

@@ -26,28 +26,28 @@
     <section style="padding-top:48px;">
         <div class="container mt-5 row mx-auto">
             <div class="col-7 mx-auto">
-                <div class="card mx-auto shadow p-3" style="width: 100%; border:transparent;">
+                <div class="card mx-auto shadow p-3 h-100" style="width: 100%; border:transparent;">
                     <div class="card-body">
                         <div  class="mb-3">
                             <h4 style="color:#982e04;"><strong>發行板機憑證</strong></h4>
                         </div>
                         <div class="row mt-4">
-                            <div class="col-8"><small>計畫合約</small></div>
-                            <div class="col-2 text-center"><small>人數</small></div>
+                            <div class="col-8 text-center"><small style="color:#666666;"><strong>計畫合約</strong></small></div>
+                            <div class="col-2 text-center"><small style="color:#666666;"><strong>人數</strong></small></div>
                         </div>
                         <hr / class="mx-auto mb-4" style="width: 100%;">
                         {% for task in waitForIssue %}
                         <div class="row">
-                            <div class="col-8 my-auto">{{ task.target }}</div>
-                            <div class="col-2 text-center my-auto">{{ task.count }}</div>
+                            <div class="col-8 my-auto"><b style="color:#444444;">{{ task.target }}</b></div>
+                            <div class="col-2 text-center my-auto"><b style="color:#444444;">{{ task.count }}</b></div>
                             <div class="col-2 text-center my-auto"><a href="token/issue/{{ task.target }}"class="btn btn-outline-TT my-auto">選取</a></div>
                         </div>
                         <hr / style="width: 100%;">
                         {% endfor %}
-                        {% for task in waitForTXComplete %}
+                        {% for task in waitForIssueComplete %}
                         <div class="row">
-                            <div class="col-8 my-auto">{{ task.target }}</div>
-                            <div class="col-2 text-center my-auto">{{ task.count }}</div>
+                            <div class="col-8 my-auto"><b style="color:#444444;">{{ task.target.contract_address }}</b></div>
+                            <div class="col-2 text-center my-auto"><b style="color:#444444;">{{ task.count }}</b></div>
                             <div class="col-2 text-center my-auto"><a class="btn btn-TT my-auto disabled">處理中</a></div>
                         </div>
                         <hr / style="width: 100%;">
@@ -56,12 +56,96 @@
                 </div>
             </div>
             <div class="col-5 mx-auto">
-                <div class="card mx-auto shadow p-3" style="width: 100%; border:transparent;">
+                <div class="card mx-auto shadow p-3 h-100" style="width: 100%; border:transparent;">
+                    <div class="card-body">
+                        <div  class="mb-3">
+                            <h4 style="color:#982e04;"><strong>白名單設定</strong></h4>
+                        </div>
+                        <div class="row mt-4">
+                            <div class="col-8 text-center"><small style="color:#666666;"><strong>非白名單人數</strong></small></div>
+                            <div class="col-4 text-center"><small style="color:#666666;"></div>
+                        </div>
+                        <hr / class="mx-auto mb-4" style="width: 100%;">
+                        {% for task in waitForWhitelist %}
+                        <div class="row">
+                            <div class="col-8 my-auto" style="color:#444444; text-align: center;"><b class="my-auto" style="color:#444444;">{{ task.count }}</b></div>
+                            <div class="col-4 text-center my-auto"><a href="{% url 'setWhitelist' %}"class="btn btn-outline-TT my-auto">批量執行</a></div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 mx-auto mt-3">
+                <div class="card mx-auto shadow p-3 h-100" style="width: 100%; border:transparent;">
                     <div class="card-body">
                         <div  class="mb-3">
                             <h4 style="color:#982e04;"><strong>申請給付</strong></h4>
                         </div>
-                        <hr / class="mx-auto" style="width: 100%;">
+                        <div class="row mt-4">
+                            <div class="col-4 text-center"><small style="color:#666666;"><strong>計畫合約</strong></small></div>
+                            <div class="col-4 text-center"><small style="color:#666666;"><strong>使用者</strong></small></div>
+                            <div class="col-1 text-center"><small style="color:#666666;"><strong>數量</strong></small></div>
+                            <div class="col-1 text-center"><small style="color:#666666;"><strong>事由</strong></small></div>
+                            <div class="col-2 text-center"></div>
+                        </div>
+                        <hr / class="mx-auto mb-4" style="width: 100%;">
+                        {% for task in waitForClaim %}
+                        <div class="row">
+                            <div class="col-4 my-auto d-flex" style="color:#444444; text-align: left; text-overflow: ellipsis; overflow: hidden;"><b class="my-auto" style="text-decoration:none; color:#444444; white-space: nowrap;">{{ task.target.contract_address }}</b></div>
+                            <div class="col-4 text-center my-auto d-flex" style="color:#444444; text-align: left; text-overflow: ellipsis; overflow: hidden;"><b>{{ task.user.username }}</b></div>
+                            <div class="col-1 text-center my-auto"><b style="color:#444444;">{{ task.amount }}</b></div>
+                            <div class="col-1 text-center my-auto"><b style="color:#444444;">{{ task.action_type }}</b></div>
+                            <div class="col-2 text-center my-auto"><a href="{% url 'makeClaim' target=task.target.id user=task.user.username taskID=task.id %}"class="btn btn-outline-TT my-auto">選取</a></div>
+                        </div>
+                        <hr / style="width: 100%;">
+                        {% endfor %}
+                        {% for task in waitForClaimComplete %}
+                        <div class="row">
+                            <div class="col-4 my-auto d-flex" style="color:#666666; text-align: left; text-overflow: ellipsis; overflow: hidden;"><b class="my-auto" style="text-decoration:none; color:#666666; white-space: nowrap;">{{ task.target.contract_address }}</b></div>
+                            <div class="col-4 text-center my-auto d-flex" style="color:#666666; text-align: left; text-overflow: ellipsis; overflow: hidden;"><b>{{ task.user.username }}</b></div>
+                            <div class="col-1 text-center my-auto" style="color:#666666;">{{ task.amount }}</div>
+                            <div class="col-1 text-center my-auto"><b style="color:#666666;">{{ task.action_type }}</b></div>
+                            <div class="col-2 text-center my-auto"><a class="btn btn-TT my-auto disabled">處理中</a></div>
+                        </div>
+                        <hr / style="width: 100%;">
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 mx-auto mt-3">
+                <div class="card mx-auto shadow p-3 h-100" style="width: 100%; border:transparent;">
+                    <div class="card-body">
+                        <div  class="mb-3">
+                            <h4 style="color:#982e04;"><strong>銷毀憑證</strong></h4>
+                        </div>
+                        <div class="row mt-4">
+                            <div class="col-4 text-center"><small style="color:#666666;"><strong>計畫合約</strong></small></div>
+                            <div class="col-4 text-center"><small style="color:#666666;"><strong>使用者</strong></small></div>
+                            <div class="col-1 text-center"><small style="color:#666666;"><strong>數量</strong></small></div>
+                            <div class="col-1 text-center"><small style="color:#666666;"><strong>事由</strong></small></div>
+                            <div class="col-2 text-center"></div>
+                        </div>
+                        <hr / class="mx-auto mb-4" style="width: 100%;">
+                        {% for task in waitForBurn %}
+                        <div class="row">
+                            <div class="col-4 my-auto d-flex" style="color:#444444; text-align: center; text-overflow: ellipsis; overflow: hidden;"><b class="my-auto" style="text-decoration:none; color:#444444; white-space: nowrap;">{{ task.target.contract_address }}</b></div>
+                            <div class="col-4 text-center my-auto d-flex" style="color:#444444; text-align: center; text-overflow: ellipsis; overflow: hidden;"><b>{{ task.user.username }}</b></div>
+                            <div class="col-1 text-center my-auto"><b style="color:#444444;">{{ task.amount }}</b></div>
+                            <div class="col-1 text-center my-auto"><b style="color:#444444;">{{ task.action_type }}</b></div>
+                            <div class="col-2 text-center my-auto"><a href="{% url 'tokenBurn' target=task.target.id user=task.user.username taskID=task.id %}"class="btn btn-outline-TT my-auto">選取</a></div>
+                        </div>
+                        <hr / style="width: 100%;">
+                        {% endfor %}
+                        {% for task in waitForBurnComplete %}
+                        <div class="row">
+                            <div class="col-4 my-auto d-flex" style="color:#666666; text-align: center; text-overflow: ellipsis; overflow: hidden;"><b class="my-auto" style="text-decoration:none; color:#666666; white-space: nowrap;">{{ task.target.contract_address }}</b></div>
+                            <div class="col-4 text-center my-auto d-flex" style="color:#666666; text-align: center; text-overflow: ellipsis; overflow: hidden;"><b>{{ task.user.username }}</b></div>
+                            <div class="col-1 text-center my-auto" style="color:#666666;">{{ task.amount }}</div>
+                            <div class="col-1 text-center my-auto"><b style="color:#666666;">{{ task.action_type }}</b></div>
+                            <div class="col-2 text-center my-auto"><a class="btn btn-TT my-auto disabled">處理中</a></div>
+                        </div>
+                        <hr / style="width: 100%;">
+                        {% endfor %}
                     </div>
                 </div>
             </div>

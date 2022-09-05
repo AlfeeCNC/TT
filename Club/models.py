@@ -1,9 +1,7 @@
 from django.db import models
 from django.conf import settings
 from django.urls import reverse
-
-from MemberSystem.models import *
-
+import datetime
 
 # Create your models here.
 class Plan(models.Model):
@@ -19,6 +17,8 @@ class Plan(models.Model):
         on_delete=models.CASCADE)
     # 參與費用
     fee = models.PositiveIntegerField()
+    # 發起日期
+    start_date = models.DateField(default=datetime.date.today())
     # 起始金額
     launch_amount = models.PositiveIntegerField()
     # 是否為無限期
@@ -63,6 +63,7 @@ class Participant(models.Model):
     take_effect_date = models.DateField()
     # 退出日期
     quit_date = models.DateTimeField(null=True, blank=True)
-
+    # 是否已申請退出
+    quitting = models.BooleanField(default=False)
     # def __str__(self):
     #     return self.user

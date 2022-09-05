@@ -10,11 +10,11 @@ spec = importlib.util.spec_from_file_location(
 module = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(module)
 
-def cashPointOrder(userAddress, amount):
+def cashPointOrder(userAddress, username, amount):
     order_params = {
         # === 付款資訊 ===
-        #"ReturnURL": "http://127.0.0.1:8000/zh-hant/members/paymentReturn/",   # 開發本機端 
-        "ReturnURL": "http://52.73.1.77:8000/zh-hant/members/paymentReturn/",  # EC2主機端 
+        "ReturnURL": "http://127.0.0.1:8000/zh-hant/members/paymentReturn/",   # 開發本機端 
+        # "ReturnURL": "http://52.73.1.77:8000/zh-hant/members/paymentReturn/",  # EC2主機端 
         "ChoosePayment": "ALL",
         "PaymentType": "aio",
 
@@ -31,10 +31,11 @@ def cashPointOrder(userAddress, amount):
         "ItemName": "風險互助專案 現金點數",
 
         # === 選填欄位 ===
+        "CustomField3": username,
         "CustomField1": userAddress,
         "CustomField2": "cashPointContract",
-        "OrderResultURL": "http://52.73.1.77:8000/zh-hant/members/paymentReturn/",  # EC2主機端 
-        #"OrderResultURL": "http://127.0.0.1:8000/zh-hant/members/paymentReturn/",  # 用這個 view 接結果 # 開發本機端 
+        # "OrderResultURL": "http://52.73.1.77:8000/zh-hant/members/paymentReturn/",  # EC2主機端 
+        "OrderResultURL": "http://127.0.0.1:8000/zh-hant/members/paymentReturn/",  # 用這個 view 接結果 # 開發本機端 
     }
     # 建立訂單實體
     ecpay_payment_sdk = module.ECPayPaymentSdk(

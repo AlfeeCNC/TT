@@ -12,16 +12,13 @@
                 <h3 class="card-title text-center mt-3" style="color:#982e04;"><strong>{{ plan.name }}</strong>
                 </h3>
                 <hr / class="mx-auto" style="width: 80%;">
-
-                <div class="ms-3 me-3 mt-5 mb-4">
-                    <h5 class="card-text mb-2" style="color:#982e04;"><strong>STEP.1 {% trans "實名認證" %}</strong>
+                <div class="ms-3 me-3 mt-5 mb-3">
+                    <h5 class="card-text mb-2" style="color:#982e04;"><strong>{% trans "申請成功" %}</strong>
                     </h5>
-                    <button class="btn btn-secondary w-100 disabled">{% trans "已完成" %}</button>
-                    <a href="{{ plan.join_step2_url }}" class="mt-1 btn btn-success w-100">{% trans "下一步" %}</a>
-                </div>
-                <div class="ms-3 me-3 mb-3">
-                    <h5 class="card-text mb-1" style="color:#cd9b85;"><strong>STEP.2 {% trans "選擇使用者類型及標的狀況" %}</strong>
-                    </h5>
+                    <span><strong>您已成功申請加入 {{plan.name}}</strong></span></br>
+                    <small style="color: #666666;"><strong>註：加入程序將於每月的一號進行，並移轉對應的板機憑證至會員錢包。</strong></small>
+                    <a href="{% url 'myPortfolio' %}" class="mt-4 btn btn-success w-100">{% trans "返回我的資產" %}</a>
+                    <a href="{% url 'mutualClubList' %}" class="mt-1 btn btn-secondary w-100">{% trans "返回互助群列表" %}</a>
                 </div>
             </div>
         </div>
