@@ -147,6 +147,11 @@ class ClaimReceiptThread(threading.Thread):
         except Exception as e:
             print(e)
 def adminLogin(request):
+    if request.user.is_authenticated:
+        if request.user.is_staff:
+            return redirect(reverse_lazy('adminDashboard'))
+    else:
+        pass
     if request.POST:
         username = request.POST.get('username')
         password = request.POST.get('password')
