@@ -176,7 +176,6 @@ def register(request):
                 bank_account="000128415259322",
                 wallet_address=userWallet,
                 cash_points=0
-
             )
             return redirect(reverse_lazy('registerSucceed'))
 
@@ -238,6 +237,15 @@ def login(request):
                     password=make_password(secrets.token_hex(32)),
                 )
                 user = User.objects.get(username=account)
+                UserInfo.objects.create(
+                    user=user,
+                    name="陳小明",
+                    birthday=datetime.date.today(),
+                    ID_number="F123456789",
+                    bank_account="000128415259322",
+                    wallet_address=account,
+                    cash_points=0
+                )
                 user.backend = 'django.contrib.auth.backends.ModelBackend'
                 auth.login(request, user)
                 return redirect(reverse_lazy('loginSucceed'))
