@@ -303,6 +303,13 @@ def setWhitelist(request):
         return redirect(reverse_lazy('adminDashboard'))
     return render(request, 'setWhitelist.html', context)
 
+
+
+### 這邊有bug，若非區塊鏈使用者申請給付，Dapplet會把所有非區塊鏈使用者的憑證數都算在一起
+### 之後若更新Dapplet，讓我們可以輸入claim數量，就能從DB抓TT的數目
+### 某使用者(user) 在某計畫(plan) 的TT數量是記載在參與紀錄資料表-Participant
+### 先抓參與紀錄 target = Participant.objects.get(user=user, plan=plan)
+### 就能抓到憑證數量 ttAmount = target.tokens
 @csrf_exempt
 def claim(request, target, user, taskID):
     plan = Plan.objects.get(id=target)
