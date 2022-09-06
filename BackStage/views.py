@@ -142,8 +142,8 @@ class ClaimReceiptThread(threading.Thread):
                     done = False
                 )
                 burnAction.save()
-            else :
-                pass
+            else:
+                transferCashPoint(user, amount)
         except Exception as e:
             print(e)
 def adminLogin(request):
