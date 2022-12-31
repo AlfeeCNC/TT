@@ -19,7 +19,7 @@ from eth_account.messages import encode_defunct
 from MemberSystem.models import *
 
 # Infura Node
-InfuraURL = "https://ropsten.infura.io/v3/ed00ddb25c3b460c9b99f2375a314102"
+InfuraURL = "https://goerli.infura.io/v3/ed00ddb25c3b460c9b99f2375a314102"
 # Initiating Web3
 web3 = Web3(web3.HTTPProvider(InfuraURL))
 
@@ -89,17 +89,17 @@ def sharingClubList(request):
 
 def mutualClubList(request):
     planList = Plan.objects.all()
-    for plan in planList:
-        requestURL = "https://ttdapplet.skychainnet.com/api/supply"
-        requestData = {
-            "domain": "skychainnet.com",
-            "domain_password": "skychain",
-            "tt_address": plan.contract_address
-        }
-        tokenSupplyAPI = requests.post(requestURL, json=requestData)
-        response = json.loads(tokenSupplyAPI.content)
-        supply = int(response['supply'])//1000000000000000000
-        plan.supply = supply
+    # for plan in planList:
+    #     requestURL = "https://ttdapplet.skychainnet.com/api/supply"
+    #     requestData = {
+    #         "domain": "skychainnet.com",
+    #         "domain_password": "skychain",
+    #         "tt_address": plan.contract_address
+    #     }
+    #     tokenSupplyAPI = requests.post(requestURL, json=requestData)
+    #     response = json.loads(tokenSupplyAPI.content)
+    #     supply = int(response['supply'])//1000000000000000000
+    #     plan.supply = supply
     context = {
         'planList': planList,
     }

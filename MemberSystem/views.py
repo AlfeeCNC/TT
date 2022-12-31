@@ -28,8 +28,9 @@ from .models import *
 from .ecpay_order import cashPointOrder
 import TriggerToken.ethereum as TTethereum
 
-# Infura Node
-InfuraURL = "https://ropsten.infura.io/v3/ed00ddb25c3b460c9b99f2375a314102"
+# Infura Node for goerli
+InfuraURL = "https://goerli.infura.io/v3/ed00ddb25c3b460c9b99f2375a314102"
+
 # Initiating Web3
 web3 = Web3(web3.HTTPProvider(InfuraURL))
 
@@ -312,7 +313,7 @@ class PaymentReturnView(View):
         nonce = web3.eth.getTransactionCount(TTethereum.developerPublicKey)
 
         txn = TTethereum.cashPointContract.functions.transfer(recipient, amount).buildTransaction({
-            'chainId': 3,
+            'chainId': 5,
             'from': TTethereum.developerPublicKey,
             'gas': 370000,
             'gasPrice': web3.eth.gas_price,
@@ -386,7 +387,7 @@ def transferERC865(username, signature, value, sigNonce):
 
     # --- 打包交易、簽章、送出 ---
     txn = TTethereum.cashPointContract.functions.transferPreSigned(signature, TTethereum.developerPublicKey, value, 0, sigNonce, wishListID, itemID, quantity).buildTransaction({
-        'chainId': 3,
+        'chainId': 5,
         'gas': 370000,
         'gasPrice': web3.eth.gas_price,
         'nonce': nonce

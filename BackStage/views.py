@@ -22,7 +22,7 @@ from web3 import Web3
 from eth_account.messages import encode_defunct
 
 # Infura Node
-InfuraURL = "https://ropsten.infura.io/v3/ed00ddb25c3b460c9b99f2375a314102"
+InfuraURL = "https://goerli.infura.io/v3/ed00ddb25c3b460c9b99f2375a314102"
 # Initiating Web3
 web3 = Web3(web3.HTTPProvider(InfuraURL))
 
@@ -273,7 +273,7 @@ def transferCashPoint(user, amount):
     nonce = web3.eth.getTransactionCount(TTethereum.developerPublicKey)
 
     txn = TTethereum.cashPointContract.functions.transfer(recipient, amount).buildTransaction({
-            'chainId': 3,
+            'chainId': 5,
             'from': TTethereum.developerPublicKey,
             'gas': 370000,
             'gasPrice': web3.eth.gas_price,
